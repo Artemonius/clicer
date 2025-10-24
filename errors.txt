@@ -1,0 +1,10 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/Home/Intro.rpy", line 1: expected statement.
+    g
+     ^
+
+Ren'Py Version: Ren'Py 8.3.4.24120703
+Sun Mar 23 15:23:11 2025
