@@ -1,7 +1,7 @@
 
 
 screen my_overlay:
-    #add DynamicImage("images/1.png") xalign 0.5 yalign 0 # бэкграунд
+    add DynamicImage("images/1.png") xpos 0 ypos 200 xsize 1920 yfill True # бэкграунд
     #add "UI/overlay.png"
     #text "[Location_name]" xalign 0.5 yalign 0.69  size 40 font "fonts/LocationName.ttf" xanchor 0.5
     # Описание локации
