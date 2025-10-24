@@ -154,6 +154,7 @@
         if img_clicker_current < img_clicker_end:
             img_clicker_current += 1
             img = img_clicker_prefix + str(img_clicker_current) + ".png"
+            renpy.restart_interaction()  # Обновляем экран
             return True
         else:
             # Достигнут конец последовательности
