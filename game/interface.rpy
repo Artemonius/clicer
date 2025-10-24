@@ -1,0 +1,388 @@
+
+
+screen my_overlay:
+    #add DynamicImage("images/1.png") xalign 0.5 yalign 0 # бэкграунд
+    #add "UI/overlay.png"
+    #text "[Location_name]" xalign 0.5 yalign 0.69  size 40 font "fonts/LocationName.ttf" xanchor 0.5
+    # Описание локации
+
+    frame:
+        xpadding 0
+        ypadding 0
+        background Solid("#232220")
+
+
+
+    frame:
+        xsize 450
+        ysize 1080
+        background Solid("#232220")
+        xpos 0
+        ypos 0
+
+    frame:
+        xsize 450
+        ysize 1080
+        background Solid("#232220")
+        xpos 1920-450
+        ypos 0
+
+    frame:
+        xsize 3
+        ysize 1080
+        background Solid("#000000")
+        xpos 447
+        yalign 0
+
+    frame:
+        xsize 3
+        ysize 1080
+        background Solid("#000000")
+        xpos 1920-449
+        yalign 0
+
+    #frame:
+    #    xsize 1920-450-450
+    #    xpos 450
+    #    ypos 650
+    #    ysize 1
+    #    background Solid("#000000")
+        
+
+    #frame:
+    #    xsize 300
+    #    ysize 1
+    #    background Solid("#ffffff")
+    #    xalign 0.05
+    #    yalign 0.24
+
+    #frame:
+    #    xsize 300
+    #    ysize 1
+    #    background Solid("#ffffff")
+    #    xalign 0.05
+    #    yalign 0.73
+
+    #frame:
+    #    xsize 330
+    #    ysize 1
+    #    background Solid("#ffffff")
+    #    xalign 0.97
+    #    yalign 0.06
+
+
+    add "UI/LeftBlockFull.png" xalign 0
+    add "UI/RightBlockFull.png" xalign 1.0
+    #add "UI/RightBlockLine.png" xalign 0.999 yalign 0.06
+    add "UI/CenterBlock.png" xalign 0.5
+    vbox:
+        yalign 0.02
+        xalign 0.999
+        spacing 5
+        text "[Location_name]" line_spacing 10 xalign 0.5 xanchor 0.5 xmaximum 350 size 44 font "fonts/LocationName.ttf"
+        add "UI/RightBlockLine.png" xalign 1.0
+    vbox:
+
+        xmaximum 500
+        ymaximum 500
+        xalign 0.15
+        yalign 0.03
+        xanchor 0.5
+        spacing 1
+        #text "[Location_name]" line_spacing 10 size 44  font "fonts/LocationName.ttf" #color "#373737"
+    #    text "[Location_description]" size 24 font "fonts/LocationDescription.ttf" ypos 10 xpos 10
+    #    if renpy.get_screen("choice"):
+    #        for i in Location_items:
+    #            textbutton i.name action Jump(i.Label) style "ThingButtonWindow" text_style "ThingButtonText"
+    #    else:
+    #        for i in Location_items:
+    #            textbutton i.name style "ThingButtonWindow" text_style "ThingButtonText"
+
+    # Навигация по левой плашке
+    #vbox:
+    #    xalign 1.0
+    #    yalign 0.85
+    #    spacing 10
+    #    if character == 1:
+    #        imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("character", 1), SetVariable("inventory", 0), SetVariable("relationship", 0)]
+    #    else :
+    #        imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("character", 1), SetVariable("inventory", 0), SetVariable("relationship", 0)]
+    #    if inventory == 1:
+    #        imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("inventory", 1), SetVariable("character", 0), SetVariable("relationship", 0)]
+    #    else:
+    #        imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("inventory", 1), SetVariable("character", 0), SetVariable("relationship", 0)]
+    #    if relationship == 1:
+    #        imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("relationship", 1), SetVariable("inventory", 0), SetVariable("character", 0)]
+    #    else:
+    #        imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("relationship", 1), SetVariable("inventory", 0), SetVariable("character", 0)]
+#
+    #vbox:
+    #    xalign 0.99
+    #    yalign 0.84
+    #    spacing 34
+    #    text "Персонаж" font "fonts/LocationName.ttf" size 50 color "#373737" 
+    #    text "Инвентарь" font "fonts/LocationName.ttf" size 50 color "#373737"
+    #    text "Отношения" font "fonts/LocationName.ttf" size 50 color "#373737"
+
+    # Статы
+
+    #text "[hour]:[minutes]" xalign 0.09 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
+    if hour < 10:
+        text hour_show xalign 0.09 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
+    else :
+        text hour_show xalign 0.09 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
+    if minutes > 9:
+        text minutes_show xalign 0.15 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
+    else:
+        text minutes_show xalign 0.15 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
+    text "[weekday]" xalign 0.12 yalign 0.12 size 36  xanchor 0.5 font "fonts/serreg.ttf" 
+    text "[date].[month].[year]" xalign 0.12 yalign 0.157 size 32 xanchor 0.5 font "fonts/serreg.ttf"
+
+    text "Наличность: [money]$" xalign 0.12 yalign 0.19 size 32 xanchor 0.5 font "fonts/serreg.ttf"
+
+    vbox:
+        xalign 0.06
+        yalign 0.95
+        spacing 0
+        textbutton "ПЕРСОНАЖ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("character_menu", "1"), SetVariable("inventory_menu", "0"), SetVariable("journal_menu", "0")]
+        textbutton "ИНВЕНТАРЬ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("inventory_menu", "1"), SetVariable("character_menu", "0"), SetVariable("journal_menu", "0")]
+        textbutton "ЗАМЕТКИ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("journal_menu", "1"), SetVariable("character_menu", "0"), SetVariable("inventory_menu", "0")]
+
+    viewport:
+        
+        yanchor 0
+        xanchor 0
+        xalign 0.03
+        yalign 0.26
+        scrollbars "vertical"
+        mousewheel True
+        draggable False
+        ymaximum 500
+        xmaximum 350
+
+        vbox:
+            
+            xanchor 0.5
+            xalign 0.5
+            yanchor 0
+            xsize 350
+            #xalign 0.01 yalign 0.25
+            spacing 5
+
+
+            text "ЭНЕРГИЯ"  xalign 0.5 font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
+            bar value StaticValue(energy, 100): # максимум - 100 hp
+                xanchor 0.5
+                align (.5, .33) # положение на экране
+                xmaximum 264 # размеры
+                ymaximum 25
+                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+                thumb None # здесь можно поставить разделитель
+                thumb_shadow None # и тень
+            text "ГОЛОД" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
+            bar value StaticValue(hunger, 100): # максимум - 100 hp
+                xanchor 0.5
+                align (.5, .33) # положение на экране
+                xmaximum 264
+                ymaximum 25
+                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+                thumb None # здесь можно поставить разделитель
+                thumb_shadow None # и тень
+            text "ГИГИЕНА" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
+            bar value StaticValue(hygiene, 100): # максимум - 100 hp
+                xanchor 0.5
+                align (.5, .33) # положение на экране
+                xmaximum 264 # размеры
+                ymaximum 25
+                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+                thumb None # здесь можно поставить разделитель
+                thumb_shadow None # и тень
+
+            text "НАСТРОЕНИЕ" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
+            bar value StaticValue(mood, 100): # максимум - 100 hp
+                xanchor 0.5
+                align (.5, .33) # положение на экране
+                xmaximum 264 # размеры
+                ymaximum 25
+                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+                thumb None # здесь можно поставить разделитель
+                thumb_shadow None # и тень
+            text "ВОЗБУЖДЕНИЕ" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
+            bar value StaticValue(arouse, 100): # максимум - 100 hp
+                xanchor 0.5
+                align (.5, .33) # положение на экране
+                xmaximum 264 # размеры
+                ymaximum 25
+                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+                thumb None # здесь можно поставить разделитель
+                thumb_shadow None # и тень
+
+    # Описание персонажа
+    
+    # Инвентарь
+
+    # Кнопки
+
+    #vbox:
+    #    xalign 0
+    #    yalign 0.98
+    #    spacing 10
+    #    if character == 1:
+    #        imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("character", 1), SetVariable("inventory", 0), SetVariable("relationship", 0)]
+    #    else :
+    #        imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("character", 1), SetVariable("inventory", 0), SetVariable("relationship", 0)]
+    #    if inventory == 1:
+    #        imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("inventory", 1), SetVariable("character", 0), SetVariable("relationship", 0)]
+    #    else:
+    #        imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("inventory", 1), SetVariable("character", 0), SetVariable("relationship", 0)]
+    #    if relationship == 1:
+    #        imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("relationship", 1), SetVariable("inventory", 0), SetVariable("character", 0)]
+    #    else:
+    #        imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("relationship", 1), SetVariable("inventory", 0), SetVariable("character", 0)]
+
+    #    imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [MainMenu(confirm=True)]               
+
+
+    #vbox:
+    #    xalign 0.04
+    #    yalign 0.97
+    #    spacing 34
+    #    text "Персонаж" font "fonts/LocationName.ttf" size 50 color "#373737" 
+    #    text "Инвентарь" font "fonts/LocationName.ttf" size 50 color "#373737"
+    #    text "Отношения" font "fonts/LocationName.ttf" size 50 color "#373737"
+    #    text "Меню" font "fonts/LocationName.ttf" size 50 color "#373737"
+
+    
+
+style ThingButtonWindow:
+    ypos 10
+    xpos 20
+    background "UI/ItemButton.png" 
+    hover_background "UI/ItemButtonHover.png"
+    xpadding 100
+
+style ThingButtonText:
+    size 40
+    idle_color "#000000"
+    hover_color "#ffffff"
+    xanchor  0.5
+    xcenter 0.5
+    font "fonts/ChoiceText.ttf"
+    
+
+screen main_UI:
+    add DynamicImage("images/1.png") xalign 0.5 yalign 0 # бэкграунд
+    add "UI/overlay.png"
+    text "[LocationCurrent]" xalign 0.5 yalign 0.69  size 40 font "fonts/LocationName.ttf" xanchor 0.5
+    # Описание локации
+    vbox:
+        xmaximum 350
+        ymaximum 500
+        xalign 0.97
+        yalign 0.03
+        spacing 10
+        text "[Location_name]:"  size 44  font "fonts/LocationName.ttf" color "#373737"
+        # text "[Location_description]" size 24 font "fonts/LocationDescription.ttf" ypos 10 xpos 10
+        if len(Location_chars) > 0:
+            text "Персонажи:" size 24
+        
+        if renpy.get_screen("choice"):
+            for i in Location_chars:
+                textbutton i.name action Jump(i.Label) style "ThingButtonWindow" text_style "ThingButtonText"
+        else:
+            for i in Location_items:
+                textbutton i.name style "ThingButtonWindow" text_style "ThingButtonText"
+
+        if len(Location_items) > 0:
+            text "Предметы:" size 24
+
+        if renpy.get_screen("choice"):
+            for i in Location_items:
+                textbutton i.name action Jump(i.Label) style "ThingButtonWindow" text_style "ThingButtonText"
+        else:
+            for i in Location_items:
+                textbutton i.name style "ThingButtonWindow" text_style "ThingButtonText"
+
+    # Навигация по левой плашке
+    vbox:
+        xalign 1.0
+        yalign 0.85
+        spacing 10
+        if character == 1:
+            imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("character", 1), SetVariable("inventory", 0), SetVariable("relationship", 0)]
+        else :
+            imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("character", 1), SetVariable("inventory", 0), SetVariable("relationship", 0)]
+        if inventory == 1:
+            imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("inventory", 1), SetVariable("character", 0), SetVariable("relationship", 0)]
+        else:
+            imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("inventory", 1), SetVariable("character", 0), SetVariable("relationship", 0)]
+        if relationship == 1:
+            imagebutton idle "UI/GreenButton.png" hover "UI/GreenButton.png"  action [SetVariable("relationship", 1), SetVariable("inventory", 0), SetVariable("character", 0)]
+        else:
+            imagebutton idle "UI/RedButton.png" hover "UI/GreenButton.png"  action [SetVariable("relationship", 1), SetVariable("inventory", 0), SetVariable("character", 0)]
+
+    vbox:
+        xalign 0.99
+        yalign 0.84
+        spacing 34
+        text "Персонаж" font "fonts/LocationName.ttf" size 50 color "#373737" 
+        text "Инвентарь" font "fonts/LocationName.ttf" size 50 color "#373737"
+        text "Отношения" font "fonts/LocationName.ttf" size 50 color "#373737"
+
+    # Статы
+
+    #text "[hour]:[minutes]" xalign 0.09 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
+    if hour < 10:
+        text "0[hour]:" xalign 0.06 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
+    else :
+        text "[hour]:" xalign 0.06 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
+    if minutes > 9:
+        text "[minutes]" xalign 0.12 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
+    else:
+        text "0[minutes]" xalign 0.12 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
+    text "[weekday]" xalign 0.09 yalign 0.1  xanchor 0.5 font "fonts/ChoiceText.ttf" size 34
+    text "[date].[month].[year]" xalign 0.09 yalign 0.155 xanchor 0.5 font "fonts/LocationDescription.ttf"
+
+    text "Наличность: [money]$" xalign 0.09 yalign 0.19 xanchor 0.5 font "fonts/LocationDescription.ttf"
+
+    text "ЭНЕРГИЯ" xalign 0.09 yalign 0.285  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
+    bar value StaticValue(energy, 100): # максимум - 100 hp
+        align (.03, .33) # положение на экране
+        xmaximum 264 # размеры
+        ymaximum 25
+        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+        thumb None # здесь можно поставить разделитель
+        thumb_shadow None # и тень
+    text "ГОЛОД" xalign 0.09 yalign 0.375  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
+    bar value StaticValue(hunger, 100): # максимум - 100 hp
+        align (.03, .42) # положение на экране
+        xmaximum 264 # размеры
+        ymaximum 25
+        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+        thumb None # здесь можно поставить разделитель
+        thumb_shadow None # и тень
+    text "НАСТРОЕНИЕ" xalign 0.09 yalign 0.465  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
+    bar value StaticValue(mood, 100): # максимум - 100 hp
+        align (.03, .51) # положение на экране
+        xmaximum 264 # размеры
+        ymaximum 25
+        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+        thumb None # здесь можно поставить разделитель
+        thumb_shadow None # и тень
+    text "ВВОЗБУЖДЕНИЕ" xalign 0.09 yalign 0.555  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
+    bar value StaticValue(arouse, 100): # максимум - 100 hp
+        align (.03, .6) # положение на экране
+        xmaximum 264 # размеры
+        ymaximum 25
+        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
+        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
+        thumb None # здесь можно поставить разделитель
+        thumb_shadow None # и тень
