@@ -1315,9 +1315,9 @@ screen nvl(dialogue, items=None):
         has vbox:
             spacing 20
         if img.startswith("anim:"):
-            add img.replace("anim:", "") xalign 0.5 ypos 2 size (1008, 645) fit "scale-down"
+            add img.replace("anim:", "") xpos 0 ypos 200 xsize 1024 ysize 1536
         else:
-            add "images/[img]" xalign 0.5 ypos 2 size (1008, 645) fit "scale-down"
+            add "images/[img]" xpos 0 ypos 200 xsize 1024 ysize 1536
         ## Displays dialogue in either a vpgrid or the vbox.
 
         if gui.nvl_height:
