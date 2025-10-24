@@ -1313,16 +1313,6 @@ screen nvl(dialogue, items=None):
     else:
         add "images/[img]" xpos 0 ypos 200 xsize 1024 ysize 1536
 
-    # Кликабельная область для смены картинок
-    if img_max > 0:
-        button:
-            xpos 0
-            ypos 200
-            xsize 1024
-            ysize 1536
-            background None
-            action Function(next_img)
-
     window:
         #ypos 650
         xalign 0.5

@@ -113,14 +113,12 @@
     global father_hall
     global mother_hall
 
-    # Простая система кликера
-    global img_current
-    global img_max
-    global img_prefix
-
-    img_current = 0
-    img_max = 0
-    img_prefix = ""
+    # Простая функция для смены картинки с паузой на клик
+    def show_img(filename):
+        """Показывает картинку и ждёт клика. Использование: $ show_img("val_1.png")"""
+        global img
+        img = filename
+        renpy.pause(hard=True)
 
     def ClearThings():
         global Location_items
@@ -739,4 +737,11 @@ label place2:
     "А это второе место"
 
     "{a=jump:place1}Ну и отлично{/a}{fast}{nw}"
+
+
+
+## Кликер - показывает последовательность картинок
+label clicker_show:
+    call screen clicker_screen
+    return
 
