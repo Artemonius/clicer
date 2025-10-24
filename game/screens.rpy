@@ -294,10 +294,11 @@ screen navigation():
     vbox:
         style_prefix "navigation"
 
-        xpos gui.navigation_xpos
+        # Кнопки по центру экрана
+        xalign 0.5
         yalign 0.5
 
-        spacing gui.navigation_spacing
+        spacing 20
 
         if main_menu:
 
@@ -341,9 +342,19 @@ style navigation_button_text is gui_button_text
 style navigation_button:
     size_group "navigation"
     properties gui.button_properties("navigation_button")
+    # Полупрозрачная белая подложка
+    background Frame("gui/button/white_bg.png", Borders(10, 10, 10, 10), tile=False) if False else Solid("#FFFFFF80")
+    padding (40, 20, 40, 20)
+    xminimum 400
+    xalign 0.5
 
 style navigation_button_text:
     properties gui.button_text_properties("navigation_button")
+    # Увеличенный размер текста
+    size 50
+    color "#000000"
+    hover_color "#333333"
+    xalign 0.5
 
 
 ## Main Menu screen ############################################################
@@ -357,11 +368,9 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
-
-    ## This empty frame darkens the main menu.
-    frame:
-        style "main_menu_frame"
+    # Фоновая картинка mainmenu.png на весь экран
+    # Можете заменить на свою картинку, положив mainmenu.png в папку game/
+    add "gui/main_menu.png" xalign 0.5 yalign 0.5
 
     ## The use statement includes another screen inside this one. The actual
     ## contents of the main menu are in the navigation screen.
