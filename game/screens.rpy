@@ -1298,6 +1298,12 @@ style notify_text:
 
 screen nvl(dialogue, items=None):
 
+    # Фоновая картинка вне viewport, чтобы не обрезалась
+    if img.startswith("anim:"):
+        add img.replace("anim:", "") xpos 0 ypos 200 xsize 1024 ysize 1536
+    else:
+        add "images/[img]" xpos 0 ypos 200 xsize 1024 ysize 1536
+
     window:
         #ypos 650
         xalign 0.5
@@ -1311,13 +1317,9 @@ screen nvl(dialogue, items=None):
         #scrollbars "vertical"
         xmaximum 1020
         ymaximum 1080 xfill True yfill True
-        
+
         has vbox:
             spacing 20
-        if img.startswith("anim:"):
-            add img.replace("anim:", "") xpos 0 ypos 200 xsize 1024 ysize 1536
-        else:
-            add "images/[img]" xpos 0 ypos 200 xsize 1024 ysize 1536
         ## Displays dialogue in either a vpgrid or the vbox.
 
         if gui.nvl_height:
