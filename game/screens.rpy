@@ -1555,3 +1555,31 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+
+################################################################################
+## Clicker Screen - для последовательной смены картинок
+################################################################################
+
+screen image_clicker():
+    """
+    Экран для кликера - меняет картинки по клику.
+
+    Пример использования в вашем label:
+        $ update_img("1_1", "1_20")
+        call screen image_clicker
+    """
+
+    # Кликабельная область на весь экран
+    button:
+        xfill True
+        yfill True
+        background None
+        action Function(next_img)
+
+    # Индикатор прогресса (опционально, можно убрать)
+    text "{size=30}[img_clicker_current] / [img_clicker_end]{/size}":
+        xalign 0.95
+        yalign 0.05
+        color "#FFFFFF"
+        outlines [(2, "#000000", 0, 0)]

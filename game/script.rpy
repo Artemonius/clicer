@@ -113,6 +113,53 @@
     global father_hall
     global mother_hall
 
+    # Система кликера для смены картинок
+    global img_clicker_current
+    global img_clicker_prefix
+    global img_clicker_start
+    global img_clicker_end
+
+    img_clicker_current = 1
+    img_clicker_prefix = ""
+    img_clicker_start = 1
+    img_clicker_end = 1
+
+    def update_img(start_img, end_img):
+        """
+        Инициализирует систему кликера для последовательной смены картинок.
+        Например: update_img("1_1", "1_20") - картинки от 1_1.png до 1_20.png
+        """
+        global img, img_clicker_current, img_clicker_prefix, img_clicker_start, img_clicker_end
+
+        # Разбираем начальную картинку (например "1_1" -> префикс "1_", начало 1)
+        parts = start_img.rsplit("_", 1)
+        img_clicker_prefix = parts[0] + "_"
+        img_clicker_start = int(parts[1])
+
+        # Разбираем конечную картинку (например "1_20" -> конец 20)
+        end_parts = end_img.rsplit("_", 1)
+        img_clicker_end = int(end_parts[1])
+
+        # Устанавливаем текущую картинку
+        img_clicker_current = img_clicker_start
+        img = img_clicker_prefix + str(img_clicker_current) + ".png"
+
+    def next_img():
+        """
+        Переключает на следующую картинку при клике.
+        Автоматически закрывает экран кликера после последней картинки.
+        """
+        global img, img_clicker_current, img_clicker_end
+
+        if img_clicker_current < img_clicker_end:
+            img_clicker_current += 1
+            img = img_clicker_prefix + str(img_clicker_current) + ".png"
+            renpy.restart_interaction()
+        else:
+            # Достигнут конец последовательности - закрываем экран
+            renpy.hide_screen("image_clicker")
+            renpy.return_statement()
+
     def ClearThings():
         global Location_items
         del Location_items[:]
