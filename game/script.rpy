@@ -122,29 +122,6 @@
     img_max = 0
     img_prefix = ""
 
-    def update_img(start_img, end_img):
-        """Инициализирует кликер. Например: update_img("1_1", "1_20")"""
-        global img, img_current, img_max, img_prefix
-
-        # Разбираем "1_1" -> префикс="1_", старт=1
-        parts = start_img.split("_")
-        img_prefix = parts[0] + "_"
-        img_current = int(parts[1])
-
-        # Разбираем "1_20" -> макс=20
-        img_max = int(end_img.split("_")[1])
-
-        # Устанавливаем первую картинку
-        img = img_prefix + str(img_current) + ".png"
-
-    def next_img():
-        """Следующая картинка при клике"""
-        global img, img_current, img_max, img_prefix
-
-        if img_current < img_max:
-            img_current += 1
-            img = img_prefix + str(img_current) + ".png"
-
     def ClearThings():
         global Location_items
         del Location_items[:]
