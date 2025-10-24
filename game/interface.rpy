@@ -11,6 +11,147 @@ screen my_overlay:
         ypadding 0
         background Solid("#232220")
 
+    # НОВАЯ ВЕРХНЯЯ ПАНЕЛЬ 200px
+    frame:
+        xsize 1920
+        ysize 200
+        xpos 0
+        ypos 0
+        background Solid("#1a1918")
+
+        # Статы в две строки слева
+        vbox:
+            xpos 20
+            ypos 20
+            spacing 10
+
+            # Верхняя строка: Голод, Гигиена, Настроение
+            hbox:
+                spacing 30
+
+                # Голод
+                hbox:
+                    spacing 5
+                    # Placeholder для иконки (32x32px)
+                    frame:
+                        xsize 32
+                        ysize 32
+                        background Solid("#ff6b6b")
+                    vbox:
+                        spacing 2
+                        text "Голод" size 18 font "fonts/zenant.ttf"
+                        bar value StaticValue(hunger, 100):
+                            xmaximum 120
+                            ymaximum 15
+                            left_bar "UI/Bars/green.png"
+                            right_bar "UI/Bars/Background.png"
+                            thumb None
+                            thumb_shadow None
+
+                # Гигиена
+                hbox:
+                    spacing 5
+                    frame:
+                        xsize 32
+                        ysize 32
+                        background Solid("#4ecdc4")
+                    vbox:
+                        spacing 2
+                        text "Гигиена" size 18 font "fonts/zenant.ttf"
+                        bar value StaticValue(hygiene, 100):
+                            xmaximum 120
+                            ymaximum 15
+                            left_bar "UI/Bars/green.png"
+                            right_bar "UI/Bars/Background.png"
+                            thumb None
+                            thumb_shadow None
+
+                # Настроение
+                hbox:
+                    spacing 5
+                    frame:
+                        xsize 32
+                        ysize 32
+                        background Solid("#ffe66d")
+                    vbox:
+                        spacing 2
+                        text "Настроение" size 18 font "fonts/zenant.ttf"
+                        bar value StaticValue(mood, 100):
+                            xmaximum 120
+                            ymaximum 15
+                            left_bar "UI/Bars/green.png"
+                            right_bar "UI/Bars/Background.png"
+                            thumb None
+                            thumb_shadow None
+
+            # Нижняя строка: Энергия, Возбуждение
+            hbox:
+                spacing 30
+
+                # Энергия
+                hbox:
+                    spacing 5
+                    frame:
+                        xsize 32
+                        ysize 32
+                        background Solid("#95e1d3")
+                    vbox:
+                        spacing 2
+                        text "Энергия" size 18 font "fonts/zenant.ttf"
+                        bar value StaticValue(energy, 100):
+                            xmaximum 120
+                            ymaximum 15
+                            left_bar "UI/Bars/green.png"
+                            right_bar "UI/Bars/Background.png"
+                            thumb None
+                            thumb_shadow None
+
+                # Возбуждение
+                hbox:
+                    spacing 5
+                    frame:
+                        xsize 32
+                        ysize 32
+                        background Solid("#ff6b9d")
+                    vbox:
+                        spacing 2
+                        text "Возбуждение" size 18 font "fonts/zenant.ttf"
+                        bar value StaticValue(arouse, 100):
+                            xmaximum 120
+                            ymaximum 15
+                            left_bar "UI/Bars/green.png"
+                            right_bar "UI/Bars/Background.png"
+                            thumb None
+                            thumb_shadow None
+
+        # Время (справа от статов)
+        vbox:
+            xpos 700
+            ypos 50
+            spacing 5
+
+            hbox:
+                spacing 5
+                if hour < 10:
+                    text hour_show size 48 font "fonts/serreg.ttf"
+                else:
+                    text hour_show size 48 font "fonts/serreg.ttf"
+                if minutes > 9:
+                    text minutes_show size 48 font "fonts/serreg.ttf"
+                else:
+                    text minutes_show size 48 font "fonts/serreg.ttf"
+
+            text "[weekday]" size 20 font "fonts/serreg.ttf"
+            text "[date].[month].[year]" size 18 font "fonts/serreg.ttf"
+
+        # Текущая локация (справа)
+        vbox:
+            xpos 950
+            ypos 50
+            spacing 5
+
+            text "Локация:" size 20 font "fonts/zenant.ttf"
+            text "[Location_name]" size 24 font "fonts/LocationName.ttf" xmaximum 300
 
 
     frame:
@@ -47,7 +188,7 @@ screen my_overlay:
     #    ypos 650
     #    ysize 1
     #    background Solid("#000000")
-        
+
 
     #frame:
     #    xsize 300
@@ -120,23 +261,11 @@ screen my_overlay:
     #    xalign 0.99
     #    yalign 0.84
     #    spacing 34
-    #    text "Персонаж" font "fonts/LocationName.ttf" size 50 color "#373737" 
+    #    text "Персонаж" font "fonts/LocationName.ttf" size 50 color "#373737"
     #    text "Инвентарь" font "fonts/LocationName.ttf" size 50 color "#373737"
     #    text "Отношения" font "fonts/LocationName.ttf" size 50 color "#373737"
 
-    # Статы
-
-    #text "[hour]:[minutes]" xalign 0.09 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
-    if hour < 10:
-        text hour_show xalign 0.09 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    else :
-        text hour_show xalign 0.09 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    if minutes > 9:
-        text minutes_show xalign 0.15 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    else:
-        text minutes_show xalign 0.15 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    text "[weekday]" xalign 0.12 yalign 0.12 size 36  xanchor 0.5 font "fonts/serreg.ttf" 
-    text "[date].[month].[year]" xalign 0.12 yalign 0.157 size 32 xanchor 0.5 font "fonts/serreg.ttf"
+    # Старые статы убраны - теперь в верхней панели
 
     text "Наличность: [money]$" xalign 0.12 yalign 0.19 size 32 xanchor 0.5 font "fonts/serreg.ttf"
 
@@ -148,79 +277,7 @@ screen my_overlay:
         textbutton "ИНВЕНТАРЬ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("inventory_menu", "1"), SetVariable("character_menu", "0"), SetVariable("journal_menu", "0")]
         textbutton "ЗАМЕТКИ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("journal_menu", "1"), SetVariable("character_menu", "0"), SetVariable("inventory_menu", "0")]
 
-    viewport:
-        
-        yanchor 0
-        xanchor 0
-        xalign 0.03
-        yalign 0.26
-        scrollbars "vertical"
-        mousewheel True
-        draggable False
-        ymaximum 500
-        xmaximum 350
-
-        vbox:
-            
-            xanchor 0.5
-            xalign 0.5
-            yanchor 0
-            xsize 350
-            #xalign 0.01 yalign 0.25
-            spacing 5
-
-
-            text "ЭНЕРГИЯ"  xalign 0.5 font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(energy, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
-                ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
-            text "ГОЛОД" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(hunger, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264
-                ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
-            text "ГИГИЕНА" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(hygiene, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
-                ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
-
-            text "НАСТРОЕНИЕ" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(mood, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
-                ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
-            text "ВОЗБУЖДЕНИЕ" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(arouse, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
-                ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
+    # Старый viewport со статами убран, так как статы теперь в верхней панели
 
     # Описание персонажа
     
