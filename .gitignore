@@ -2,3 +2,5 @@ game/saves/persistent
 game/saves/navigation.json
 game/saves/persistent
 *.txt
+.DS_Store
+game/.DS_Store
