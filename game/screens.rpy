@@ -342,8 +342,8 @@ style navigation_button_text is gui_button_text
 style navigation_button:
     size_group "navigation"
     properties gui.button_properties("navigation_button")
-    # Полупрозрачная белая подложка
-    background Frame("gui/button/white_bg.png", Borders(10, 10, 10, 10), tile=False) if False else Solid("#FFFFFF80")
+    # Полупрозрачная белая подложка (50% прозрачность)
+    background Solid("#FFFFFF80")
     padding (40, 20, 40, 20)
     xminimum 400
     xalign 0.5
