@@ -3,6 +3,7 @@ label Intro:
     nvl clear
     $ hour = 16
     "пидор ленивый"
+    "тест говна"
     $ CheckTime()
     $ img = "fon.png"  # Улица вечером
     $ Location_name = "Улица перед домом"
