@@ -294,10 +294,11 @@ screen navigation():
     vbox:
         style_prefix "navigation"
 
-        xpos gui.navigation_xpos
+        # Кнопки по центру экрана
+        xalign 0.5
         yalign 0.5
 
-        spacing gui.navigation_spacing
+        spacing 20
 
         if main_menu:
 
@@ -341,9 +342,19 @@ style navigation_button_text is gui_button_text
 style navigation_button:
     size_group "navigation"
     properties gui.button_properties("navigation_button")
+    # Полупрозрачная белая подложка (50% прозрачность)
+    background Solid("#FFFFFF80")
+    padding (40, 20, 40, 20)
+    xminimum 400
+    xalign 0.5
 
 style navigation_button_text:
     properties gui.button_text_properties("navigation_button")
+    # Увеличенный размер текста
+    size 50
+    color "#000000"
+    hover_color "#333333"
+    xalign 0.5
 
 
 ## Main Menu screen ############################################################
@@ -357,11 +368,9 @@ screen main_menu():
     ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
-
-    ## This empty frame darkens the main menu.
-    frame:
-        style "main_menu_frame"
+    # Фоновая картинка mainmenu.png на весь экран
+    # Можете заменить на свою картинку, положив mainmenu.png в папку game/
+    add "gui/main_menu.png" xalign 0.5 yalign 0.5
 
     ## The use statement includes another screen inside this one. The actual
     ## contents of the main menu are in the navigation screen.
@@ -1298,6 +1307,12 @@ style notify_text:
 
 screen nvl(dialogue, items=None):
 
+    # Фоновая картинка вне viewport, чтобы не обрезалась
+    if img.startswith("anim:"):
+        add img.replace("anim:", "") xpos 0 ypos 200 xsize 1024 ysize 1536
+    else:
+        add "images/[img]" xpos 0 ypos 200 xsize 1024 ysize 1536
+
     window:
         #ypos 650
         xalign 0.5
@@ -1311,13 +1326,9 @@ screen nvl(dialogue, items=None):
         #scrollbars "vertical"
         xmaximum 1020
         ymaximum 1080 xfill True yfill True
-        
+
         has vbox:
             spacing 20
-        if img.startswith("anim:"):
-            add img.replace("anim:", "") xalign 0.5 ypos 2 size (1008, 645) fit "scale-down"
-        else:
-            add "images/[img]" xalign 0.5 ypos 2 size (1008, 645) fit "scale-down"
         ## Displays dialogue in either a vpgrid or the vbox.
 
         if gui.nvl_height:

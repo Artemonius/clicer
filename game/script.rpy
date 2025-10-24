@@ -731,3 +731,11 @@ label place2:
 
     "{a=jump:place1}Ну и отлично{/a}{fast}{nw}"
 
+
+
+
+# Простой label для смены картинки с кликом
+label i(name):
+    $ img = name
+    pause
+    return

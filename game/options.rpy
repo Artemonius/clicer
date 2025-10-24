@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("MyEto")
+define config.name = _("clicer")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -37,7 +37,7 @@ define gui.about = _p("""
 ## distribution. This must be ASCII-only, and must not contain spaces, colons,
 ## or semicolons.
 
-define build.name = "MyEto"
+define build.name = "clicer"
 
 
 ## Sounds and music ############################################################
@@ -143,7 +143,7 @@ default show_quick_menu = False
 ## This generally should not be changed, and if it is, should always be a
 ## literal string, not an expression.
 
-define config.save_directory = "MyEto-1658783994"
+define config.save_directory = "clicer-1658783994"
 
 
 ## Icon ########################################################################
