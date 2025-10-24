@@ -1,3 +1,5 @@
 /cache/
 #игнорируем rpyc файлы
 *.rpyc
+*.save
+*.json
