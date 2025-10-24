@@ -113,52 +113,37 @@
     global father_hall
     global mother_hall
 
-    # Система кликера для смены картинок
-    global img_clicker_current
-    global img_clicker_prefix
-    global img_clicker_start
-    global img_clicker_end
+    # Простая система кликера
+    global img_current
+    global img_max
+    global img_prefix
 
-    img_clicker_current = 1
-    img_clicker_prefix = ""
-    img_clicker_start = 1
-    img_clicker_end = 1
+    img_current = 0
+    img_max = 0
+    img_prefix = ""
 
     def update_img(start_img, end_img):
-        """
-        Инициализирует систему кликера для последовательной смены картинок.
-        Например: update_img("1_1", "1_20") - картинки от 1_1.png до 1_20.png
-        """
-        global img, img_clicker_current, img_clicker_prefix, img_clicker_start, img_clicker_end
+        """Инициализирует кликер. Например: update_img("1_1", "1_20")"""
+        global img, img_current, img_max, img_prefix
 
-        # Разбираем начальную картинку (например "1_1" -> префикс "1_", начало 1)
-        parts = start_img.rsplit("_", 1)
-        img_clicker_prefix = parts[0] + "_"
-        img_clicker_start = int(parts[1])
+        # Разбираем "1_1" -> префикс="1_", старт=1
+        parts = start_img.split("_")
+        img_prefix = parts[0] + "_"
+        img_current = int(parts[1])
 
-        # Разбираем конечную картинку (например "1_20" -> конец 20)
-        end_parts = end_img.rsplit("_", 1)
-        img_clicker_end = int(end_parts[1])
+        # Разбираем "1_20" -> макс=20
+        img_max = int(end_img.split("_")[1])
 
-        # Устанавливаем текущую картинку
-        img_clicker_current = img_clicker_start
-        img = img_clicker_prefix + str(img_clicker_current) + ".png"
+        # Устанавливаем первую картинку
+        img = img_prefix + str(img_current) + ".png"
 
     def next_img():
-        """
-        Переключает на следующую картинку.
-        Возвращает True если картинка изменилась, False если достигнут конец.
-        """
-        global img, img_clicker_current, img_clicker_end
+        """Следующая картинка при клике"""
+        global img, img_current, img_max, img_prefix
 
-        if img_clicker_current < img_clicker_end:
-            img_clicker_current += 1
-            img = img_clicker_prefix + str(img_clicker_current) + ".png"
-            renpy.restart_interaction()  # Обновляем экран
-            return True
-        else:
-            # Достигнут конец последовательности
-            return False
+        if img_current < img_max:
+            img_current += 1
+            img = img_prefix + str(img_current) + ".png"
 
     def ClearThings():
         global Location_items

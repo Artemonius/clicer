@@ -1313,8 +1313,8 @@ screen nvl(dialogue, items=None):
     else:
         add "images/[img]" xpos 0 ypos 200 xsize 1024 ysize 1536
 
-    # Кликабельная область для смены картинок (если активирован кликер)
-    if img_clicker_current > 0 and img_clicker_current <= img_clicker_end:
+    # Кликабельная область для смены картинок
+    if img_max > 0:
         button:
             xpos 0
             ypos 200
