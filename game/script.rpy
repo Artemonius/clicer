@@ -146,19 +146,18 @@
 
     def next_img():
         """
-        Переключает на следующую картинку при клике.
-        Автоматически закрывает экран кликера после последней картинки.
+        Переключает на следующую картинку.
+        Возвращает True если картинка изменилась, False если достигнут конец.
         """
         global img, img_clicker_current, img_clicker_end
 
         if img_clicker_current < img_clicker_end:
             img_clicker_current += 1
             img = img_clicker_prefix + str(img_clicker_current) + ".png"
-            renpy.restart_interaction()
+            return True
         else:
-            # Достигнут конец последовательности - закрываем экран
-            renpy.hide_screen("image_clicker")
-            renpy.return_statement()
+            # Достигнут конец последовательности
+            return False
 
     def ClearThings():
         global Location_items
