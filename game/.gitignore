@@ -1,3 +1,7 @@
 /cache/
 #игнорируем rpyc файлы
 *.rpyc
+# Игнорируем saves и логи
+/saves/
+*.txt
+```

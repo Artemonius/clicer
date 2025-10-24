@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/Home/Intro.rpy", line 1: expected statement.
-    g
-     ^
+File "game/interface.rpy", line 4: 'yfill' is not a keyword argument or valid child of the add statement.
+    add DynamicImage("images/1.png") xpos 0 ypos 200 xsize 1920 yfill True 
+                                                                     ^
 
-Ren'Py Version: Ren'Py 8.3.4.24120703
-Sun Mar 23 15:23:11 2025
+Ren'Py Version: Ren'Py 8.3.7.25031702
+Fri Oct 24 15:12:23 2025
