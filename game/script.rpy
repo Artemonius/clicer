@@ -113,13 +113,6 @@
     global father_hall
     global mother_hall
 
-    # Простая функция для смены картинки с паузой на клик
-    def show_img(filename):
-        """Показывает картинку и ждёт клика. Использование: $ show_img("val_1.png")"""
-        global img
-        img = filename
-        renpy.pause(hard=True)
-
     def ClearThings():
         global Location_items
         del Location_items[:]
@@ -740,8 +733,9 @@ label place2:
 
 
 
-## Кликер - показывает последовательность картинок
-label clicker_show:
-    call screen clicker_screen
-    return
 
+# Простой label для смены картинки с кликом
+label i(name):
+    $ img = name
+    pause
+    return
