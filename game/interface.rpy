@@ -22,7 +22,8 @@ screen stat_animation(stat_name, change_value):
     # Получаем координаты стата
     python:
         from store import stat_x_positions, stat_positions
-        end_x = stat_x_positions.get(stat_name, 50) + 220  # +220 чтобы было справа от полоски
+        # Иконка ~40px + бар 200px = 240px
+        end_x = stat_x_positions.get(stat_name, 50) + 240
         end_y = stat_positions.get(stat_name, 50)
 
         # Выбираем картинку в зависимости от направления изменения
@@ -43,31 +44,20 @@ screen stat_animation(stat_name, change_value):
 screen stat_changes_display():
     zorder 99
 
-    # Проходим по всем изменениям статов
-    python:
-        import time
-        from store import stat_changes, stat_x_positions, stat_positions
-        current_time = time.time()
-
-        # Удаляем старые изменения (старше 2 секунд)
-        to_remove = []
-        for stat_name, change_info in stat_changes.items():
-            if current_time - change_info.get('timestamp', 0) > 2.0:
-                to_remove.append(stat_name)
-
-        for stat_name in to_remove:
-            del stat_changes[stat_name]
-
     # Отображаем изменения
-    for stat_name, change_info in stat_changes.items():
-        $ x_pos = stat_x_positions.get(stat_name, 50) + 260  # Справа от полоски
+    for stat_name, change_val in stat_changes.items():
+        # Иконка ~40px + бар 200px + отступ 10px = 250px
+        $ x_pos = stat_x_positions.get(stat_name, 50) + 250
         $ y_pos = stat_positions.get(stat_name, 50)
-        $ change_val = change_info.get('value', 0)
+        $ val = int(change_val)  # Округляем до целого
 
-        if change_val > 0:
-            text "+[change_val]" xpos x_pos ypos y_pos size 32 color "#00ff00" at fade_in_out
-        elif change_val < 0:
-            text "[change_val]" xpos x_pos ypos y_pos size 32 color "#ff0000" at fade_in_out
+        if val > 0:
+            text "+[val]" xpos x_pos ypos y_pos size 32 color "#00ff00" at fade_in_out
+        elif val < 0:
+            text "[val]" xpos x_pos ypos y_pos size 32 color "#ff0000" at fade_in_out
+
+        # Удаляем изменение через 2 секунды
+        timer 2.0 action Function(clear_stat_change, stat_name)
 
 # Трансформация для плавного появления и исчезновения текста
 transform fade_in_out:
@@ -75,6 +65,12 @@ transform fade_in_out:
     linear 0.2 alpha 1.0
     pause 1.6
     linear 0.2 alpha 0.0
+
+# Функция для очистки изменений статов
+init python:
+    def clear_stat_change(stat_name):
+        if stat_name in stat_changes:
+            del stat_changes[stat_name]
 
 screen my_overlay:
     # Белый фон
@@ -219,7 +215,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/energy.png" yalign 0.5
-                bar value StaticValue(energy, 100):
+                bar value VariableValue("energy", 100):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
@@ -233,7 +229,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/hungry.png" yalign 0.5
-                bar value StaticValue(hunger, 100):
+                bar value VariableValue("hunger", 100):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
@@ -247,7 +243,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/hygiene.png" yalign 0.5
-                bar value StaticValue(hygiene, 100):
+                bar value VariableValue("hygiene", 100):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
@@ -265,7 +261,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/arouse.png" yalign 0.5
-                bar value StaticValue(arouse):
+                bar value VariableValue("arouse"):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
@@ -279,7 +275,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/mood.png" yalign 0.5
-                bar value StaticValue(mood):
+                bar value VariableValue("mood"):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
@@ -293,7 +289,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/energy.png" yalign 0.5
-                bar value StaticValue(new_value_test, 100):
+                bar value VariableValue("new_value_test", 100):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40

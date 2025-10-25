@@ -117,21 +117,24 @@
     global stat_changes
     stat_changes = {}
 
-    # Позиции статов на экране для анимации (y-координаты)
+    # Позиции статов на экране для анимации
+    # Первая строка: ypos 30, высота бара 40
+    # Вторая строка: ypos 30 + 40 + 30(spacing) = 100
     stat_positions = {
-        "energy": 55,      # первая строка, колонка 1
-        "hunger": 55,      # первая строка, колонка 2
-        "hygiene": 55,     # первая строка, колонка 3
-        "arouse": 115,     # вторая строка, колонка 1
-        "mood": 115,       # вторая строка, колонка 2
-        "new_value_test": 115  # вторая строка, колонка 3
+        "energy": 50,      # первая строка, колонка 1
+        "hunger": 50,      # первая строка, колонка 2
+        "hygiene": 50,     # первая строка, колонка 3
+        "arouse": 110,     # вторая строка, колонка 1
+        "mood": 110,       # вторая строка, колонка 2
+        "new_value_test": 110  # вторая строка, колонка 3
     }
 
-    # X-координаты для каждой колонки
+    # X-координаты для каждой колонки (начало hbox + размер иконки + spacing)
+    # xpos 50, каждая колонка xsize 250 + spacing 20
     stat_x_positions = {
         "energy": 50,
-        "hunger": 320,
-        "hygiene": 590,
+        "hunger": 320,    # 50 + 250 + 20
+        "hygiene": 590,   # 50 + 250 + 20 + 250 + 20
         "arouse": 50,
         "mood": 320,
         "new_value_test": 590
@@ -246,50 +249,60 @@
     def AddStats(stat_name, value):
         """
         Универсальная функция для изменения всех статов с анимацией
-        stat_name: название стата (строка) - "energy", "mood", "hunger", "hygiene", "arouse" и т.д.
-        value: значение изменения (положительное или отрицательное)
         """
-        global energy, mood, hunger, hygiene, arouse
-        # Получаем текущее значение стата
-        # Обновляем значение в зависимости от типа стата
-        if stat_name == "arouse":
-            # Специальная обработка для возбуждения
-            arouse += value
-            if arouse < 0:
-                arouse = 0
-            if arouse > 100:
-                arouse = 100
+        global energy, mood, hunger, hygiene, arouse, arouse_def, lust, satisfaction
+        global fatty, cosmetic, face, skin, hairs, body, physique, new_value_test
+        global stat_changes
+
+        # Обновляем значение стата
+        if stat_name == "energy":
+            energy += value
+            if energy > 100: energy = 100
+            if energy < 0: energy = 0
         elif stat_name == "mood":
-            # Для настроения есть специальная проверка
             mood += value
-            if mood <= 0:
-                mood = 0
-            if mood >= 100:
-                mood = 100
+            CheckMood()
         elif stat_name == "hunger":
             hunger += value
-            if hunger <= 0:
-                hunger = 0
-            if hunger >= 100:
-                hunger = 100
+            if hunger > 100: hunger = 100
+            if hunger < 0: hunger = 0
         elif stat_name == "hygiene":
             hygiene += value
-            if hygiene <= 0:
-                hygiene = 0
-            if hygiene >= 100:
-                hygiene = 100
-        elif stat_name == "energy":
-            energy += value
-            if energy <= 0:
-                energy = 0
-            if energy >= 100:
-                energy = 100
-        
+            if hygiene > 100: hygiene = 100
+            if hygiene < 0: hygiene = 0
+        elif stat_name == "arouse":
+            arouse_def += value * (lust / 100) if lust > 0 else value
+            arouse = arouse_def - satisfaction
+            if arouse < 0: arouse = 0
+            if arouse > 100: arouse = 100
+        elif stat_name == "lust":
+            lust += value
+            if lust > 100: lust = 100
+            if lust < 0: lust = 0
+        elif stat_name == "satisfaction":
+            satisfaction += value
+            if satisfaction > 100: satisfaction = 100
+            if satisfaction < 0: satisfaction = 0
+        elif stat_name == "fatty":
+            fatty += value
+            if fatty > 100: fatty = 100
+            if fatty < 0: fatty = 0
+        elif stat_name == "cosmetic":
+            cosmetic += value
+            if cosmetic > 100: cosmetic = 100
+            if cosmetic < 0: cosmetic = 0
+        elif stat_name == "face":
+            face += value
+            if face > 100: face = 100
+            if face < 0: face = 0
+        elif stat_name == "new_value_test":
+            new_value_test += value
+            if new_value_test > 100: new_value_test = 100
+            if new_value_test < 0: new_value_test = 0
 
-
-
-        # Сохраняем изменение для анимации (только если изменение не нулевое)
-        if value != 0:
+        # Сохраняем изменение для отображения +/-
+        if value != 0 and stat_name in stat_positions:
+            stat_changes[stat_name] = value
             # Показываем анимацию
             renpy.show_screen("stat_animation", stat_name=stat_name, change_value=value)
 
