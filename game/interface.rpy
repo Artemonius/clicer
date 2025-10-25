@@ -31,8 +31,7 @@ transform balls_fly_right_up:
 # Screen для анимации изменения статов
 screen stat_animation(stat_name, change_value):
     zorder 200
-    # Уникальный tag для каждого стата - позволяет анимировать разные статы одновременно
-    tag "stat_anim_[stat_name]"
+    # Без tag - позволяет создавать множество экземпляров одновременно
 
     # Выбираем картинку
     if change_value > 0:
@@ -49,9 +48,6 @@ screen stat_animation(stat_name, change_value):
         add ball_image at balls_fly_right_up
     else:
         add ball_image at balls_fly_up
-
-    # Скрываем анимацию через 0.8 секунды
-    timer 0.8 action Hide("stat_anim_[stat_name]")
 
 # Screen для отображения изменений статов (+ и -)
 screen stat_changes_display():
