@@ -30,7 +30,7 @@ transform balls_fly_right_up:
 
 # Screen для анимации изменения статов
 screen stat_animation(stat_name, change_value):
-    zorder 100
+    zorder 200  # Выше всех остальных экранов
     tag stat_animation
 
     python:
@@ -40,6 +40,10 @@ screen stat_animation(stat_name, change_value):
         else:
             ball_image = "images/balls.png"
 
+        # Debug
+        import renpy
+        renpy.log("ANIMATION: stat_name=%s, change_value=%s, image=%s" % (stat_name, change_value, ball_image))
+
     # Выбираем траекторию и показываем анимацию
     if stat_name in ["hunger", "mood"]:
         add ball_image at balls_fly_up
@@ -47,6 +51,9 @@ screen stat_animation(stat_name, change_value):
         add ball_image at balls_fly_left_up
     elif stat_name in ["hygiene", "new_value_test"]:
         add ball_image at balls_fly_right_up
+    else:
+        # На всякий случай показываем хоть что-то
+        add ball_image at balls_fly_up
 
     timer 0.8 action Hide("stat_animation")
 
@@ -56,14 +63,10 @@ screen stat_changes_display():
 
     # Отображаем изменения
     for stat_name, change_val in stat_changes.items():
-        $ val = int(change_val)
-        $ x_pos = 300  # Дефолтное значение
+        $ x_pos = 300
         $ y_pos = 50
 
-        # Позиции для каждого стата (x, y)
-        # Первая строка: y=50, вторая строка: y=110
-        # Колонки: x=300 (слева), x=570 (центр), x=840 (справа)
-
+        # Позиции справа от баров
         if stat_name == "energy":
             $ x_pos = 300
             $ y_pos = 50
@@ -83,10 +86,10 @@ screen stat_changes_display():
             $ x_pos = 840
             $ y_pos = 110
 
-        if val > 0:
-            text "+[val]" xpos x_pos ypos y_pos size 32 color "#00ff00" at fade_in_out
-        elif val < 0:
-            text "[val]" xpos x_pos ypos y_pos size 32 color "#ff0000" at fade_in_out
+        if change_val > 0:
+            text "+" xpos x_pos ypos y_pos size 40 color "#00ff00" at fade_in_out
+        elif change_val < 0:
+            text "-" xpos x_pos ypos y_pos size 40 color "#ff0000" at fade_in_out
 
         timer 2.0 action Function(clear_stat_change, stat_name)
 
