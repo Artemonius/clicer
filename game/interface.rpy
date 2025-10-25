@@ -30,19 +30,14 @@ transform balls_fly_right_up:
 
 # Screen для анимации изменения статов
 screen stat_animation(stat_name, change_value):
-    zorder 200  # Выше всех остальных экранов
+    zorder 200
     tag stat_animation
 
-    python:
-        # Выбираем картинку
-        if change_value > 0:
-            ball_image = "images/balls2.png"
-        else:
-            ball_image = "images/balls.png"
-
-        # Debug
-        import renpy
-        renpy.log("ANIMATION: stat_name=%s, change_value=%s, image=%s" % (stat_name, change_value, ball_image))
+    # Выбираем картинку
+    if change_value > 0:
+        $ ball_image = "images/balls2.png"
+    else:
+        $ ball_image = "images/balls.png"
 
     # Выбираем траекторию и показываем анимацию
     if stat_name in ["hunger", "mood"]:
@@ -52,7 +47,6 @@ screen stat_animation(stat_name, change_value):
     elif stat_name in ["hygiene", "new_value_test"]:
         add ball_image at balls_fly_right_up
     else:
-        # На всякий случай показываем хоть что-то
         add ball_image at balls_fly_up
 
     timer 0.8 action Hide("stat_animation")
