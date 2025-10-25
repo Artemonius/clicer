@@ -1,23 +1,3 @@
-init python:
-    # Словарь для маппинга кодов локаций на их названия
-    location_names = {
-        "home": "Дом",
-        "bedroom": "Спальня",
-        "kitchen": "Кухня",
-        "bathroom": "Ванная",
-        "street": "Улица",
-        "shop": "Магазин",
-        "park": "Парк",
-        "school": "Школа",
-        "gym": "Спортзал",
-        "cafe": "Кафе",
-        # Добавляйте свои локации здесь
-    }
-
-    def get_location_name(code):
-        """Возвращает название локации по коду"""
-        return location_names.get(code, code)  # Если код не найден, возвращает сам код
-
 screen my_overlay:
     # Белый фон
     add Solid("#FFFFFF")
@@ -245,11 +225,24 @@ screen my_overlay:
                     thumb_shadow None
 
     # Отображение текущей локации справа от баров
-    text "[get_location_name(Location_name)]":
-        xpos 900
-        ypos 50
-        size 48
-        font "fonts/LocationName.ttf"
+    if Location_name == "home":
+        text "Дом" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    elif Location_name == "bedroom":
+        text "Спальня" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    elif Location_name == "kitchen":
+        text "Кухня" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    elif Location_name == "bathroom":
+        text "Ванная" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    elif Location_name == "street":
+        text "Улица" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    elif Location_name == "shop":
+        text "Магазин" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    elif Location_name == "park":
+        text "Парк" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    elif Location_name == "school":
+        text "Школа" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
+    else:
+        text "[Location_name]" xpos 900 ypos 50 size 48 font "fonts/LocationName.ttf"
 
     # Время и дата под барами - одной строкой
     hbox:
