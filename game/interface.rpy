@@ -207,12 +207,12 @@ screen my_overlay:
                     thumb None
                     thumb_shadow None
 
-        # Вторая строка - 2 бара (центрированы, но выровнены по колонкам 1 и 2)
+        # Вторая строка - 2 бара (выровнены по колонкам 1 и 2)
         hbox:
             spacing 40
             xalign 0.5
 
-            # Возбуждение (под колонкой 1)
+            # Возбуждение (колонка 1)
             hbox:
                 spacing 10
                 xsize 250
@@ -226,12 +226,26 @@ screen my_overlay:
                     thumb None
                     thumb_shadow None
 
-            # Настроение (под колонкой 2)
+            # Настроение (колонка 2)
             hbox:
                 spacing 10
                 xsize 250
                 add "images/mood.png" yalign 0.5
                 bar value StaticValue(mood, 100):
+                    yalign 0.5
+                    xmaximum 200
+                    ymaximum 40
+                    left_bar "UI/Bars/green.png"
+                    right_bar "UI/Bars/Background.png"
+                    thumb None
+                    thumb_shadow None
+
+            # Тестовый бар (колонка 3)
+            hbox:
+                spacing 10
+                xsize 250
+                add "images/energy.png" yalign 0.5
+                bar value StaticValue(new_value_test, 100):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
