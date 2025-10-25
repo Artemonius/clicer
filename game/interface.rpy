@@ -1,31 +1,31 @@
 # Трансформация - влево вверх (energy, arouse)
 transform balls_fly_left_up:
-    xpos 960
-    ypos 540
+    xpos 512
+    ypos 868
     alpha 1.0
     parallel:
-        linear 0.6 xpos 760
+        linear 0.6 xpos 200
     parallel:
-        linear 0.6 ypos 140
+        linear 0.6 ypos 200
     linear 0.2 alpha 0.0
 
 # Трансформация - прямо вверх (hunger, mood)
 transform balls_fly_up:
-    xpos 960
-    ypos 540
+    xpos 512
+    ypos 868
     alpha 1.0
-    linear 0.6 ypos 140
+    linear 0.6 ypos 200
     linear 0.2 alpha 0.0
 
 # Трансформация - вправо вверх (hygiene, new_value_test)
 transform balls_fly_right_up:
-    xpos 960
-    ypos 540
+    xpos 512
+    ypos 868
     alpha 1.0
     parallel:
-        linear 0.6 xpos 1160
+        linear 0.6 xpos 824
     parallel:
-        linear 0.6 ypos 140
+        linear 0.6 ypos 200
     linear 0.2 alpha 0.0
 
 # Screen для анимации изменения статов
