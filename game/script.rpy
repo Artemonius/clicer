@@ -75,9 +75,31 @@
 
     global lust
 
+    global TownSheriffWorking
+    global TownDeputySheriffWorking
 
+    global CanUse
+    CanUse = False
 
+    global richgym_work
+    global richgym_ticket
 
+    # Relationships
+
+    global TroyWilson_rel
+    global Sheriff_rel
+
+    # +++++
+
+    global mother_kitchen
+    global father_kitchen
+
+    global father_hall
+    global mother_hall
+
+    # Система отслеживания изменений статов для анимации
+    global stat_changes
+    stat_changes = {}
 
     def ClearThings():
         global Location_items
@@ -147,10 +169,9 @@
             if new_value_test > 100: new_value_test = 100
             if new_value_test < 0: new_value_test = 0
 
-        # Сохраняем изменение для отображения +/-
-        if value != 0 and stat_name in stat_positions:
+        # Сохраняем изменение для отображения +/- и показываем анимацию
+        if value != 0:
             stat_changes[stat_name] = value
-            # Показываем анимацию
             renpy.show_screen("stat_animation", stat_name=stat_name, change_value=value)
 
     def CheckMagic():

@@ -1,13 +1,31 @@
-# Трансформация для анимации шаров
-transform balls_fly(start_x, start_y, end_x, end_y):
-    # Начальная позиция в центре экрана
-    xpos start_x
-    ypos start_y
+# Трансформация - влево вверх (energy, arouse)
+transform balls_fly_left_up:
+    xpos 960
+    ypos 540
     alpha 1.0
+    parallel:
+        linear 0.6 xpos 760
+    parallel:
+        linear 0.6 ypos 140
+    linear 0.2 alpha 0.0
 
-    # Анимация полета к стату
-    linear 0.5 xpos end_x ypos end_y
-    # Исчезновение
+# Трансформация - прямо вверх (hunger, mood)
+transform balls_fly_up:
+    xpos 960
+    ypos 540
+    alpha 1.0
+    linear 0.6 ypos 140
+    linear 0.2 alpha 0.0
+
+# Трансформация - вправо вверх (hygiene, new_value_test)
+transform balls_fly_right_up:
+    xpos 960
+    ypos 540
+    alpha 1.0
+    parallel:
+        linear 0.6 xpos 1160
+    parallel:
+        linear 0.6 ypos 140
     linear 0.2 alpha 0.0
 
 # Screen для анимации изменения статов
@@ -15,30 +33,22 @@ screen stat_animation(stat_name, change_value):
     zorder 100
     tag stat_animation
 
-    # Определяем центр экрана
-    default center_x = 960
-    default center_y = 540
-
-    # Получаем координаты стата
     python:
-        from store import stat_x_positions, stat_positions
-        # Иконка ~40px + бар 200px = 240px
-        end_x = stat_x_positions.get(stat_name, 50) + 240
-        end_y = stat_positions.get(stat_name, 50)
-
-        # Выбираем картинку в зависимости от направления изменения
-        # Если у вас есть свои изображения balls.png и balls2.png в папке images,
-        # измените ball_image на "images/balls.png" и "images/balls2.png"
+        # Выбираем картинку
         if change_value > 0:
-            ball_image = "images/balls2.png"  # Прибавление (зеленый)
+            ball_image = "images/balls2.png"
         else:
-            ball_image = "images/balls.png"   # Убавление (красный)
+            ball_image = "images/balls.png"
 
-    # Анимация полета шара
-    add ball_image at balls_fly(center_x, center_y, end_x, end_y)
+    # Выбираем траекторию и показываем анимацию
+    if stat_name in ["hunger", "mood"]:
+        add ball_image at balls_fly_up
+    elif stat_name in ["energy", "arouse"]:
+        add ball_image at balls_fly_left_up
+    elif stat_name in ["hygiene", "new_value_test"]:
+        add ball_image at balls_fly_right_up
 
-    # Автоматически скрыть экран через 0.7 секунды
-    timer 0.7 action Hide("stat_animation")
+    timer 0.8 action Hide("stat_animation")
 
 # Screen для отображения изменений статов (+ и -)
 screen stat_changes_display():
@@ -46,17 +56,36 @@ screen stat_changes_display():
 
     # Отображаем изменения
     for stat_name, change_val in stat_changes.items():
-        # Иконка ~40px + бар 200px + отступ 10px = 250px
-        $ x_pos = stat_x_positions.get(stat_name, 50) + 250
-        $ y_pos = stat_positions.get(stat_name, 50)
-        $ val = int(change_val)  # Округляем до целого
+        $ val = int(change_val)
+
+        # Позиции для каждого стата (x, y)
+        # Первая строка: y=50, вторая строка: y=110
+        # Колонки: x=300 (слева), x=570 (центр), x=840 (справа)
+
+        if stat_name == "energy":
+            $ x_pos = 300
+            $ y_pos = 50
+        elif stat_name == "hunger":
+            $ x_pos = 570
+            $ y_pos = 50
+        elif stat_name == "hygiene":
+            $ x_pos = 840
+            $ y_pos = 50
+        elif stat_name == "arouse":
+            $ x_pos = 300
+            $ y_pos = 110
+        elif stat_name == "mood":
+            $ x_pos = 570
+            $ y_pos = 110
+        elif stat_name == "new_value_test":
+            $ x_pos = 840
+            $ y_pos = 110
 
         if val > 0:
             text "+[val]" xpos x_pos ypos y_pos size 32 color "#00ff00" at fade_in_out
         elif val < 0:
             text "[val]" xpos x_pos ypos y_pos size 32 color "#ff0000" at fade_in_out
 
-        # Удаляем изменение через 2 секунды
         timer 2.0 action Function(clear_stat_change, stat_name)
 
 # Трансформация для плавного появления и исчезновения текста
