@@ -249,19 +249,12 @@
         stat_name: название стата (строка) - "energy", "mood", "hunger", "hygiene", "arouse" и т.д.
         value: значение изменения (положительное или отрицательное)
         """
-        global energy, mood, hunger, hygiene, arouse, arouse_def, lust, satisfaction
-        global fatty, cosmetic, face, skin, hairs, body, physique
-        global stat_changes
-        import time
-
+        global energy, mood, hunger, hygiene, arouse
         # Получаем текущее значение стата
-        old_value = globals().get(stat_name, 0)
-
         # Обновляем значение в зависимости от типа стата
         if stat_name == "arouse":
             # Специальная обработка для возбуждения
-            arouse_def += value * (lust / 100) if lust > 0 else value
-            arouse = arouse_def - satisfaction
+            arouse += value
             if arouse < 0:
                 arouse = 0
             if arouse > 100:
@@ -269,27 +262,34 @@
         elif stat_name == "mood":
             # Для настроения есть специальная проверка
             mood += value
-            CheckMood()
-        else:
-            # Для остальных статов - простое добавление
-            current_value = globals().get(stat_name, 0)
-            new_value = current_value + value
+            if mood <= 0:
+                mood = 0
+            if mood >= 100:
+                mood = 100
+        elif stat_name == "hunger":
+            hunger += value
+            if hunger <= 0:
+                hunger = 0
+            if hunger >= 100:
+                hunger = 100
+        elif stat_name == "hygiene":
+            hygiene += value
+            if hygiene <= 0:
+                hygiene = 0
+            if hygiene >= 100:
+                hygiene = 100
+        elif stat_name == "energy":
+            energy += value
+            if energy <= 0:
+                energy = 0
+            if energy >= 100:
+                energy = 100
+        
 
-            # Ограничиваем значения от 0 до 100
-            if new_value > 100:
-                new_value = 100
-            if new_value < 0:
-                new_value = 0
 
-            globals()[stat_name] = new_value
 
         # Сохраняем изменение для анимации (только если изменение не нулевое)
-        if value != 0 and stat_name in stat_positions:
-            stat_changes[stat_name] = {
-                'value': value,
-                'timestamp': time.time(),
-                'show': True
-            }
+        if value != 0:
             # Показываем анимацию
             renpy.show_screen("stat_animation", stat_name=stat_name, change_value=value)
 

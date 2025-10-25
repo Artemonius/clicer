@@ -29,9 +29,9 @@ screen stat_animation(stat_name, change_value):
         # Если у вас есть свои изображения balls.png и balls2.png в папке images,
         # измените ball_image на "images/balls.png" и "images/balls2.png"
         if change_value > 0:
-            ball_image = "balls2_placeholder"  # Прибавление (зеленый)
+            ball_image = "images/balls2.png"  # Прибавление (зеленый)
         else:
-            ball_image = "balls_placeholder"   # Убавление (красный)
+            ball_image = "images/balls.png"   # Убавление (красный)
 
     # Анимация полета шара
     add ball_image at balls_fly(center_x, center_y, end_x, end_y)
@@ -265,7 +265,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/arouse.png" yalign 0.5
-                bar value StaticValue(arouse, 100):
+                bar value StaticValue(arouse):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
@@ -279,7 +279,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/mood.png" yalign 0.5
-                bar value StaticValue(mood, 100):
+                bar value StaticValue(mood):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
