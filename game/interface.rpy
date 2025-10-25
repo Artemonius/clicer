@@ -6,24 +6,27 @@ screen my_overlay:
     #text "[Location_name]" xalign 0.5 yalign 0.69  size 40 font "fonts/LocationName.ttf" xanchor 0.5
     # Описание локации
 
+    # Белый фон с подложкой
+    add "images/game_fon.png" xalign 0.5 yalign 0.5
+
     frame:
         xpadding 0
         ypadding 0
-        background Solid("#232220")
+        background Solid("#FFFFFF")
 
 
 
     frame:
         xsize 450
         ysize 1080
-        background Solid("#232220")
+        background Solid("#FFFFFF")
         xpos 0
         ypos 0
 
     frame:
         xsize 450
         ysize 1080
-        background Solid("#232220")
+        background Solid("#FFFFFF")
         xpos 1920-450
         ypos 0
 
@@ -126,101 +129,116 @@ screen my_overlay:
 
     # Статы
 
-    #text "[hour]:[minutes]" xalign 0.09 yalign 0.03 size 90  xanchor 0.5 font "fonts/LocationName.ttf"
-    if hour < 10:
-        text hour_show xalign 0.09 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    else :
-        text hour_show xalign 0.09 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    if minutes > 9:
-        text minutes_show xalign 0.15 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    else:
-        text minutes_show xalign 0.15 yalign 0.02 size 96  xanchor 0.5 font "fonts/serreg.ttf"
-    text "[weekday]" xalign 0.12 yalign 0.12 size 36  xanchor 0.5 font "fonts/serreg.ttf" 
-    text "[date].[month].[year]" xalign 0.12 yalign 0.157 size 32 xanchor 0.5 font "fonts/serreg.ttf"
-
-    text "Наличность: [money]$" xalign 0.12 yalign 0.19 size 32 xanchor 0.5 font "fonts/serreg.ttf"
-
+    # Время и деньги наверх направо
     vbox:
-        xalign 0.06
-        yalign 0.95
-        spacing 0
-        textbutton "ПЕРСОНАЖ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("character_menu", "1"), SetVariable("inventory_menu", "0"), SetVariable("journal_menu", "0")]
-        textbutton "ИНВЕНТАРЬ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("inventory_menu", "1"), SetVariable("character_menu", "0"), SetVariable("journal_menu", "0")]
-        textbutton "ЗАМЕТКИ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("journal_menu", "1"), SetVariable("character_menu", "0"), SetVariable("inventory_menu", "0")]
+        xalign 0.95
+        ypos 20
+        xanchor 0.5
+        spacing 5
 
-    viewport:
-        
-        yanchor 0
-        xanchor 0
-        xalign 0.03
-        yalign 0.26
-        scrollbars "vertical"
-        mousewheel True
-        draggable False
-        ymaximum 500
-        xmaximum 350
+        # Время
+        hbox:
+            spacing 2
+            if hour < 10:
+                text hour_show size 48 font "fonts/serreg.ttf"
+            else:
+                text hour_show size 48 font "fonts/serreg.ttf"
+            if minutes > 9:
+                text minutes_show size 48 font "fonts/serreg.ttf"
+            else:
+                text minutes_show size 48 font "fonts/serreg.ttf"
 
+        # Дата
+        text "[weekday]" size 24 font "fonts/serreg.ttf" xalign 0.5
+        text "[date].[month].[year]" size 20 font "fonts/serreg.ttf" xalign 0.5
+
+        # Деньги
+        text "Наличность: [money]$" size 24 font "fonts/serreg.ttf" xalign 0.5
+
+    # vbox:
+    #     xalign 0.06
+    #     yalign 0.95
+    #     spacing 0
+    #     textbutton "ПЕРСОНАЖ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("character_menu", "1"), SetVariable("inventory_menu", "0"), SetVariable("journal_menu", "0")]
+    #     textbutton "ИНВЕНТАРЬ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("inventory_menu", "1"), SetVariable("character_menu", "0"), SetVariable("journal_menu", "0")]
+    #     textbutton "ЗАМЕТКИ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("journal_menu", "1"), SetVariable("character_menu", "0"), SetVariable("inventory_menu", "0")]
+
+    # Статы в верхней части - первая строка
+    hbox:
+        xalign 0.5
+        ypos 20
+        spacing 40
+
+        # Энергия
         vbox:
-            
-            xanchor 0.5
-            xalign 0.5
-            yanchor 0
-            xsize 350
-            #xalign 0.01 yalign 0.25
             spacing 5
+            add "images/energy.png" xalign 0.5
+            bar value StaticValue(energy, 100):
+                xalign 0.5
+                xmaximum 200
+                ymaximum 25
+                left_bar "UI/Bars/green.png"
+                right_bar "UI/Bars/Background.png"
+                thumb None
+                thumb_shadow None
 
+        # Голод
+        vbox:
+            spacing 5
+            add "images/hungry.png" xalign 0.5
+            bar value StaticValue(hunger, 100):
+                xalign 0.5
+                xmaximum 200
+                ymaximum 25
+                left_bar "UI/Bars/green.png"
+                right_bar "UI/Bars/Background.png"
+                thumb None
+                thumb_shadow None
 
-            text "ЭНЕРГИЯ"  xalign 0.5 font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(energy, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
+        # Гигиена
+        vbox:
+            spacing 5
+            add "images/hygiene.png" xalign 0.5
+            bar value StaticValue(hygiene, 100):
+                xalign 0.5
+                xmaximum 200
                 ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
-            text "ГОЛОД" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(hunger, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264
-                ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
-            text "ГИГИЕНА" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(hygiene, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
-                ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
+                left_bar "UI/Bars/green.png"
+                right_bar "UI/Bars/Background.png"
+                thumb None
+                thumb_shadow None
 
-            text "НАСТРОЕНИЕ" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(mood, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
+    # Статы в верхней части - вторая строка
+    hbox:
+        xalign 0.5
+        ypos 120
+        spacing 40
+
+        # Возбуждение
+        vbox:
+            spacing 5
+            add "images/arouse.png" xalign 0.5
+            bar value StaticValue(arouse, 100):
+                xalign 0.5
+                xmaximum 200
                 ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
-            text "ВОЗБУЖДЕНИЕ" xalign 0.5  font "fonts/zenant.ttf" size 32 xanchor 0.5 #color "#373737"
-            bar value StaticValue(arouse, 100): # максимум - 100 hp
-                xanchor 0.5
-                align (.5, .33) # положение на экране
-                xmaximum 264 # размеры
+                left_bar "UI/Bars/green.png"
+                right_bar "UI/Bars/Background.png"
+                thumb None
+                thumb_shadow None
+
+        # Настроение
+        vbox:
+            spacing 5
+            add "images/mood.png" xalign 0.5
+            bar value StaticValue(mood, 100):
+                xalign 0.5
+                xmaximum 200
                 ymaximum 25
-                left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-                right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-                thumb None # здесь можно поставить разделитель
-                thumb_shadow None # и тень
+                left_bar "UI/Bars/green.png"
+                right_bar "UI/Bars/Background.png"
+                thumb None
+                thumb_shadow None
 
     # Описание персонажа
     
