@@ -1,105 +1,84 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/Home/Intro.rpy", line 8, in script
-    "Ты идёшь с Дженни по обшарпанным улицам, в кармане пара мятых баксов. Сегодня выпускной, и вы решили, что без травки вечер будет совсем тухлым.{nw}"
-  File "game/Home/Intro.rpy", line 8, in script
-    "Ты идёшь с Дженни по обшарпанным улицам, в кармане пара мятых баксов. Сегодня выпускной, и вы решили, что без травки вечер будет совсем тухлым.{nw}"
-  File "renpy/common/000window.rpy", line 132, in _window_auto_callback
-    _window_show(auto=True)
-  File "renpy/common/000window.rpy", line 75, in _window_show
-    renpy.with_statement(trans)
-  File "renpy/common/00library.rpy", line 176, in _default_empty_window
-    nvl_show_core()
-  File "renpy/common/00nvl_mode.rpy", line 207, in nvl_show_core
-    return __nvl_show_screen("nvl", items=[ ])
-  File "renpy/common/00nvl_mode.rpy", line 201, in _m1_00nvl_mode__nvl_show_screen
-    return renpy.get_widget(screen_name, "what", config.nvl_layer)
-  File "game/screens.rpy", line 1299, in execute
-    screen nvl(dialogue, items=None):
-  File "game/screens.rpy", line 1299, in execute
-    screen nvl(dialogue, items=None):
-  File "game/screens.rpy", line 1301, in execute
-    window:
-  File "game/screens.rpy", line 1308, in execute
-    has viewport
-  File "game/screens.rpy", line 1315, in execute
-    has vbox:
-  File "game/screens.rpy", line 1317, in execute
-    if img.startswith("anim:"):
-  File "game/screens.rpy", line 1320, in execute
-    add "images/[img]" xalign 0.5 ypos 2 size (1008, 645) fit "scale-down"
-Exception: DynamicImage 'images/[img]': could not find image. ('images/fon.jpg')
+  File "game/Home/Intro.rpy", line 5, in script
+    "пидор ленивый"
+  File "renpy/common/00nvl_mode.rpy", line 395, in do_display
+    renpy.display_say(
+  File "game/interface.rpy", line 3, in execute
+    screen my_overlay:
+  File "game/interface.rpy", line 3, in execute
+    screen my_overlay:
+  File "game/interface.rpy", line 158, in execute
+    vbox:
+  File "game/interface.rpy", line 211, in execute
+    hbox:
+  File "game/interface.rpy", line 244, in execute
+    hbox:
+  File "game/interface.rpy", line 248, in execute
+    bar value StaticValue(new_value_test, 100):
+  File "game/interface.rpy", line 248, in keywords
+    bar value StaticValue(new_value_test, 100):
+  File "game/interface.rpy", line 248, in <module>
+    bar value StaticValue(new_value_test, 100):
+NameError: name 'new_value_test' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "/Applications/renpy-8.3.7-sdk/renpy/bootstrap.py", line 359, in bootstrap
-    renpy.main.main()
-  File "/Applications/renpy-8.3.7-sdk/renpy/main.py", line 652, in main
-    run(restart)
-  File "/Applications/renpy-8.3.7-sdk/renpy/main.py", line 148, in run
-    renpy.execution.run_context(True)
-  File "/Applications/renpy-8.3.7-sdk/renpy/execution.py", line 958, in run_context
-    context.run()
-  File "game/Home/Intro.rpy", line 8, in script
-    "Ты идёшь с Дженни по обшарпанным улицам, в кармане пара мятых баксов. Сегодня выпускной, и вы решили, что без травки вечер будет совсем тухлым.{nw}"
-  File "lib/python3.9/future/utils/__init__.py", line 444, in raise_
-  File "game/Home/Intro.rpy", line 8, in script
-    "Ты идёшь с Дженни по обшарпанным улицам, в кармане пара мятых баксов. Сегодня выпускной, и вы решили, что без травки вечер будет совсем тухлым.{nw}"
+  File "game/Home/Intro.rpy", line 5, in script
+    "пидор ленивый"
   File "/Applications/renpy-8.3.7-sdk/renpy/ast.py", line 2586, in execute
     Say.execute(self)
-  File "/Applications/renpy-8.3.7-sdk/renpy/ast.py", line 593, in execute
-    statement_name("say")
-  File "/Applications/renpy-8.3.7-sdk/renpy/ast.py", line 58, in statement_name
-    i(name)
-  File "renpy/common/000window.rpy", line 132, in _window_auto_callback
-    _window_show(auto=True)
-  File "renpy/common/000window.rpy", line 75, in _window_show
-    renpy.with_statement(trans)
-  File "/Applications/renpy-8.3.7-sdk/renpy/exports/statementexports.py", line 257, in with_statement
-    return renpy.game.interface.do_with(trans, paired, clear=clear)
-  File "/Applications/renpy-8.3.7-sdk/renpy/display/core.py", line 1577, in do_with
-    self.with_none()
-  File "/Applications/renpy-8.3.7-sdk/renpy/display/core.py", line 1595, in with_none
-    self.show_window()
-  File "/Applications/renpy-8.3.7-sdk/renpy/display/core.py", line 1563, in show_window
-    renpy.config.empty_window()
-  File "renpy/common/00library.rpy", line 176, in _default_empty_window
-    nvl_show_core()
-  File "renpy/common/00nvl_mode.rpy", line 207, in nvl_show_core
-    return __nvl_show_screen("nvl", items=[ ])
-  File "renpy/common/00nvl_mode.rpy", line 201, in _m1_00nvl_mode__nvl_show_screen
-    return renpy.get_widget(screen_name, "what", config.nvl_layer)
-  File "/Applications/renpy-8.3.7-sdk/renpy/display/screen.py", line 1541, in get_displayable
-    screen.update()
+  File "/Applications/renpy-8.3.7-sdk/renpy/ast.py", line 623, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+  File "/Applications/renpy-8.3.7-sdk/renpy/exports/sayexports.py", line 132, in say
+    who(what, *args, **kwargs)
+  File "/Applications/renpy-8.3.7-sdk/renpy/character.py", line 1471, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
+  File "renpy/common/00nvl_mode.rpy", line 395, in do_display
+    renpy.display_say(
+  File "/Applications/renpy-8.3.7-sdk/renpy/character.py", line 814, in display_say
+    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
+  File "/Applications/renpy-8.3.7-sdk/renpy/ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/core.py", line 2218, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/core.py", line 2748, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/displayable.py", line 434, in visit_all
+    d.visit_all(callback, seen)
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/screen.py", line 480, in visit_all
+    callback(self)
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/core.py", line 2748, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "/Applications/renpy-8.3.7-sdk/renpy/display/screen.py", line 491, in per_interact
+    self.update()
   File "/Applications/renpy-8.3.7-sdk/renpy/display/screen.py", line 700, in update
     self.screen.function(**self.scope)
-  File "game/screens.rpy", line 1299, in execute
-    screen nvl(dialogue, items=None):
-  File "game/screens.rpy", line 1299, in execute
-    screen nvl(dialogue, items=None):
-  File "game/screens.rpy", line 1301, in execute
-    window:
-  File "game/screens.rpy", line 1308, in execute
-    has viewport
-  File "game/screens.rpy", line 1315, in execute
-    has vbox:
-  File "game/screens.rpy", line 1317, in execute
-    if img.startswith("anim:"):
-  File "game/screens.rpy", line 1320, in execute
-    add "images/[img]" xalign 0.5 ypos 2 size (1008, 645) fit "scale-down"
-  File "/Applications/renpy-8.3.7-sdk/renpy/sl2/sldisplayables.py", line 453, in sl2add
-    d = renpy.easy.displayable(d, scope=scope)
-  File "/Applications/renpy-8.3.7-sdk/renpy/easy.py", line 119, in displayable
-    return renpy.display.image.DynamicImage(d, scope=scope)
-  File "/Applications/renpy-8.3.7-sdk/renpy/display/image.py", line 598, in __init__
-    self.find_target(scope)
-  File "/Applications/renpy-8.3.7-sdk/renpy/display/image.py", line 683, in find_target
-    raise Exception(error)
-Exception: DynamicImage 'images/[img]': could not find image. ('images/fon.jpg')
+  File "game/interface.rpy", line 3, in execute
+    screen my_overlay:
+  File "game/interface.rpy", line 3, in execute
+    screen my_overlay:
+  File "game/interface.rpy", line 158, in execute
+    vbox:
+  File "game/interface.rpy", line 211, in execute
+    hbox:
+  File "game/interface.rpy", line 244, in execute
+    hbox:
+  File "game/interface.rpy", line 248, in execute
+    bar value StaticValue(new_value_test, 100):
+  File "game/interface.rpy", line 248, in keywords
+    bar value StaticValue(new_value_test, 100):
+  File "game/interface.rpy", line 248, in <module>
+    bar value StaticValue(new_value_test, 100):
+NameError: name 'new_value_test' is not defined
 
 macOS-26.0.1-arm64-arm-64bit arm64
 Ren'Py 8.3.7.25031702
-MyEto 1.0
-Fri Oct 24 14:30:26 2025
+clicer 1.0
+Sat Oct 25 13:51:26 2025

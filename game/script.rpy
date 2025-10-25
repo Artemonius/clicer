@@ -247,6 +247,10 @@
             body = 100
         if body < 0:
             body = 0
+    def AddStats(stats, value):
+        global arouse, mood
+        if stats == mood:
+            mood += value
 
     def CheckFace():
         global face
@@ -539,7 +543,7 @@ label start:
     $ money = 500
     $ relationship = 0
     $ physique = 50
-    
+    default new_value_test = 50
     default gym_membership = 0
     #CityCenter
     default CityCenter_Bar_waiterjob = 0 #доступность работы официанткой в баре
