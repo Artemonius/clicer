@@ -184,9 +184,9 @@
 
             # Выбираем картинку
             if value > 0:
-                img = "images/balls2.png"
+                img = "balls2"
             else:
-                img = "images/balls.png"
+                img = "balls"
 
             # Выбираем transform
             if stat_name in ["hunger", "mood"]:
@@ -199,7 +199,7 @@
                 trans = balls_fly_up
 
             # Показываем на слое master с transform
-            renpy.show(tag, what=img, at_list=[trans], layer="master", zorder=200)
+            renpy.show(tag, what=renpy.displayable(img), at_list=[trans], layer="master", zorder=200)
 
     def CheckMagic():
         global magic_roll, magic_chance
@@ -303,13 +303,8 @@ screen main_screen2:
         text "text text text {a=jump:ss2} jump {/a}" color "#ffffff"
         text "[sctext]" color "#ffffff"
 # Изображения для анимации статов
-# Простые круглые шары для анимации (можно заменить на свои изображения)
-image balls_placeholder = Solid("#FF0000", xysize=(30, 30))  # Красный круг для убавления
-image balls2_placeholder = Solid("#00FF00", xysize=(30, 30))  # Зеленый круг для прибавления
-
-# Если у вас есть свои изображения, раскомментируйте строки ниже и закомментируйте выше:
-# image balls = "images/balls.png"
-# image balls2 = "images/balls2.png"
+image balls = "images/balls.png"
+image balls2 = "images/balls2.png"
 
 #здесь лежат image и можно добавлять видео
 image minet_bar = Movie(play="blowjob_bar_1.webm")
