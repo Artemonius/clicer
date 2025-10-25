@@ -6,8 +6,14 @@ label Intro:
     "пидор ленивый"
     "тест говна"
     "тест говна"
-    $ AddStats(mood, 200)
-    $ AddStats(arouse, 100)
+    "здесь мы прибавляем настроение"
+    $ AddStats("mood", 200)
+    "здесь мы прибавляем возбуждение"
+    $ AddStats("arouse", 100)
+    "здесь мы прибавляем гигиену"
+    $ AddStats("hygiene", 100)
+    "Здесь мы прибавляем энергию"
+    $ AddStats('energy', 100)
     "тест говна"
     $ CheckTime()
     $ img = "png.png"
