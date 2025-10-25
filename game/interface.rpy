@@ -1,4 +1,22 @@
+init python:
+    # Словарь для маппинга кодов локаций на их названия
+    location_names = {
+        "home": "Дом",
+        "bedroom": "Спальня",
+        "kitchen": "Кухня",
+        "bathroom": "Ванная",
+        "street": "Улица",
+        "shop": "Магазин",
+        "park": "Парк",
+        "school": "Школа",
+        "gym": "Спортзал",
+        "cafe": "Кафе",
+        # Добавляйте свои локации здесь
+    }
 
+    def get_location_name(code):
+        """Возвращает название локации по коду"""
+        return location_names.get(code, code)  # Если код не найден, возвращает сам код
 
 screen my_overlay:
     # Белый фон
@@ -120,32 +138,6 @@ screen my_overlay:
 
     # Статы
 
-    # Время и деньги наверх направо
-    vbox:
-        xalign 0.95
-        ypos 20
-        xanchor 0.5
-        spacing 5
-
-        # Время
-        hbox:
-            spacing 2
-            if hour < 10:
-                text hour_show size 48 font "fonts/serreg.ttf"
-            else:
-                text hour_show size 48 font "fonts/serreg.ttf"
-            if minutes > 9:
-                text minutes_show size 48 font "fonts/serreg.ttf"
-            else:
-                text minutes_show size 48 font "fonts/serreg.ttf"
-
-        # Дата
-        text "[weekday]" size 24 font "fonts/serreg.ttf" xalign 0.5
-        text "[date].[month].[year]" size 20 font "fonts/serreg.ttf" xalign 0.5
-
-        # Деньги
-        text "Наличность: [money]$" size 24 font "fonts/serreg.ttf" xalign 0.5
-
     # vbox:
     #     xalign 0.06
     #     yalign 0.95
@@ -156,14 +148,13 @@ screen my_overlay:
 
     # Статы наверху - выровнены в 3 колонки, 2 строки
     vbox:
-        xalign 0.5
+        xpos 50
         ypos 30
         spacing 30
 
         # Первая строка - 3 бара
         hbox:
-            spacing 40
-            xalign 0.5
+            spacing 20
 
             # Энергия (колонка 1)
             hbox:
@@ -209,8 +200,7 @@ screen my_overlay:
 
         # Вторая строка - 2 бара (выровнены по колонкам 1 и 2)
         hbox:
-            spacing 40
-            xalign 0.5
+            spacing 20
 
             # Возбуждение (колонка 1)
             hbox:
@@ -253,6 +243,40 @@ screen my_overlay:
                     right_bar "UI/Bars/Background.png"
                     thumb None
                     thumb_shadow None
+
+    # Отображение текущей локации справа от баров
+    text "[get_location_name(Location_name)]":
+        xpos 900
+        ypos 50
+        size 48
+        font "fonts/LocationName.ttf"
+
+    # Время и дата под барами - одной строкой
+    hbox:
+        xpos 50
+        ypos 170
+        spacing 15
+
+        # Время
+        hbox:
+            spacing 2
+            if hour < 10:
+                text hour_show size 36 font "fonts/serreg.ttf"
+            else:
+                text hour_show size 36 font "fonts/serreg.ttf"
+            if minutes > 9:
+                text minutes_show size 36 font "fonts/serreg.ttf"
+            else:
+                text minutes_show size 36 font "fonts/serreg.ttf"
+
+        # День недели
+        text "[weekday]" size 24 font "fonts/serreg.ttf" yalign 0.5
+
+        # Дата
+        text "[date].[month].[year]" size 20 font "fonts/serreg.ttf" yalign 0.5
+
+        # Деньги
+        text "Наличность: [money]$" size 24 font "fonts/serreg.ttf" yalign 0.5
 
     # Описание персонажа
     
