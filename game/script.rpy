@@ -64,7 +64,6 @@
     global money
     global luck
     global arouse
-    global arouse_def
     # всего отбражаемого ароуза 100, но вообще 200, просто из полного вычитается удовлетовренность.
     # т.е. чтобы возбудить полностью удовлетворенную бабу нужно набрать 200 баллов, при этом возбуждаемость работает как индес
     # т.е. если возбуждаемость 100, то любой плюс возбуждения умножается на 1, если 150, то на 1.5
@@ -73,72 +72,12 @@
     global mood  # Настроение персонажа, влияет на его реакции и взаимодействия
     global return_label  # Метка для возвращения в домашнюю локацию
     return_label = "Home"
-    global overral_handy  # Общий вид персонажа, влияет на его привлекательность и уверенность в себе
-    global hairs  # Волосы персонажа, влияют на его внешний вид и уверенность в себе
-    global face  # Лицо персонажа, влияет на его внешний вид и привлекательность
-    global skin  # Кожа персонажа, влияет на его здоровье и внешний вид
-    global body  # Тело персонажа, влияет на его физические способности и здоровье
-    global fatty  # Полнота персонажа, влияет на его внешний вид и здоровье
-    global physique  # Физическая форма персонажа, влияет на его физические способности и здоровье
-    global cosmetic  # Косметические параметры персонажа, влияют на его внешний вид и привлекательность
-    global tits  # Сиськи персонажа, влияют на его внешний вид и привлекательность
-    global satisfaction    
+
     global lust
 
 
-    global wet_panties # мокрые трусы, не от возбуждения, а после секса, типа надо подмыться.
 
-    global alkohol
-    alkohol = 0
 
-    global TownSheriffWorking
-    global TownDeputySheriffWorking
-
-    global CanUse
-    CanUse = False
-
-    global richgym_work
-    global richgym_ticket
-
-    # Relationships
-
-    global TroyWilson_rel
-    global Sheriff_rel
-
-    # +++++
-
-    global mother_kitchen
-    global father_kitchen
-
-    global father_hall
-    global mother_hall
-
-    # Система отслеживания изменений статов для анимации
-    global stat_changes
-    stat_changes = {}
-
-    # Позиции статов на экране для анимации
-    # Первая строка: ypos 30, высота бара 40
-    # Вторая строка: ypos 30 + 40 + 30(spacing) = 100
-    stat_positions = {
-        "energy": 50,      # первая строка, колонка 1
-        "hunger": 50,      # первая строка, колонка 2
-        "hygiene": 50,     # первая строка, колонка 3
-        "arouse": 110,     # вторая строка, колонка 1
-        "mood": 110,       # вторая строка, колонка 2
-        "new_value_test": 110  # вторая строка, колонка 3
-    }
-
-    # X-координаты для каждой колонки (начало hbox + размер иконки + spacing)
-    # xpos 50, каждая колонка xsize 250 + spacing 20
-    stat_x_positions = {
-        "energy": 50,
-        "hunger": 320,    # 50 + 250 + 20
-        "hygiene": 590,   # 50 + 250 + 20 + 250 + 20
-        "arouse": 50,
-        "mood": 320,
-        "new_value_test": 590
-    }
 
     def ClearThings():
         global Location_items
@@ -149,51 +88,17 @@
         global CanUse
         CanUse = NewCan
 
-    def AddArouse(x):  # Возбуждение (оставлена для обратной совместимости)
-        AddStats("arouse", x)
 
-    def OldAddArouse(x):  # Старая версия
-        global arouse, arouse_def, lust, satisfaction
-        arouse_def += x * (lust / 100)
-        arouse = arouse_def - satisfaction
-        if arouse < 0:
-            arouse = 0
-        if arouse > 100:
-            arouse = 100
+
 
 
     def CheckMood():
-        global mood, want_fame, want_macbook, want_airpods, want_ipad, want_perfume, want_makeup, want_pizza, want_burger, want_iphone
+        global mood
         if mood > 100:
             mood = 100
         if mood < 0:
             mood = 0
-        
-        # Снижаем настроение если есть неудовлетворенные желания
-        if want_fame: # хочет славы
-            mood -= 8
-        if want_macbook: # хочет макбук
-            mood -= 15 
-        if want_airpods: # хочет аирподс
-            mood -= 10
-        if want_ipad: # хочет айпад
-            mood -= 8
-        if want_perfume: # хочет духи
-            mood -= 5
-        if want_makeup: # хочет косметику
-            mood -= 4
-        if want_pizza: # хочет пиццу
-            mood -= 2
-        if want_burger: # хочет бургер
-            mood -= 2
-        if want_iphone: # хочет iphone
-            mood -= 10
             
-        # Проверяем еще раз после всех изменений
-        if mood > 100:
-            mood = 100
-        if mood < 0:
-            mood = 0
     def Sleep():
         global hour
         if hour >= 18:
@@ -206,52 +111,11 @@
         AddMood(20)
         AddHunger(-30)
 
-    def AddMood(x): #добавляем настроение (оставлена для обратной совместимости)
-        AddStats("mood", x)
-
-    def AddLust(x): #развращенность (оставлена для обратной совместимости)
-        AddStats("lust", x)
-
-    def AddHunger(x): #голод (оставлена для обратной совместимости)
-        AddStats("hunger", x)
-
-    def AddSatisfaction(x): #удовлетворенность (оставлена для обратной совместимости)
-        AddStats("satisfaction", x)
-
-    def AddHygiene(x): #гигиена (оставлена для обратной совместимости)
-        AddStats("hygiene", x)
-    
-    def AddFatty(x): #толстота (оставлена для обратной совместимости)
-        AddStats("fatty", x)
-
-    def AddCosmetic(x): #косметика (оставлена для обратной совместимости)
-        AddStats("cosmetic", x)
-
-    def AddFace(x): #красота лица (оставлена для обратной совместимости)
-        AddStats("face", x)
-
-
-    def CheckBody():
-        global body
-        body = physique - (fatty - 30)
-        if skin > 60:
-            body += 20
-        if skin < 10:
-            body -= 20
-        elif skin < 20:
-            body -= 15
-        elif skin < 30:
-            body -= 10
-        if body > 100:
-            body = 100
-        if body < 0:
-            body = 0
     def AddStats(stat_name, value):
         """
         Универсальная функция для изменения всех статов с анимацией
         """
         global energy, mood, hunger, hygiene, arouse, arouse_def, lust, satisfaction
-        global fatty, cosmetic, face, skin, hairs, body, physique, new_value_test
         global stat_changes
 
         # Обновляем значение стата
@@ -271,30 +135,13 @@
             if hygiene > 100: hygiene = 100
             if hygiene < 0: hygiene = 0
         elif stat_name == "arouse":
-            arouse_def += value * (lust / 100) if lust > 0 else value
-            arouse = arouse_def - satisfaction
+            arouse += value
             if arouse < 0: arouse = 0
             if arouse > 100: arouse = 100
         elif stat_name == "lust":
             lust += value
             if lust > 100: lust = 100
             if lust < 0: lust = 0
-        elif stat_name == "satisfaction":
-            satisfaction += value
-            if satisfaction > 100: satisfaction = 100
-            if satisfaction < 0: satisfaction = 0
-        elif stat_name == "fatty":
-            fatty += value
-            if fatty > 100: fatty = 100
-            if fatty < 0: fatty = 0
-        elif stat_name == "cosmetic":
-            cosmetic += value
-            if cosmetic > 100: cosmetic = 100
-            if cosmetic < 0: cosmetic = 0
-        elif stat_name == "face":
-            face += value
-            if face > 100: face = 100
-            if face < 0: face = 0
         elif stat_name == "new_value_test":
             new_value_test += value
             if new_value_test > 100: new_value_test = 100
@@ -305,40 +152,6 @@
             stat_changes[stat_name] = value
             # Показываем анимацию
             renpy.show_screen("stat_animation", stat_name=stat_name, change_value=value)
-
-    def CheckFace():
-        global face
-        face = skin+hairs
-        if cosmetic < 4 and cosmetic != 0:
-            face -= 20
-        if cosmetic > 8:
-            face += 20
-        elif cosmetic > 4:
-            face += 10
-        if fatty > 80:
-            face = 10
-        if face > 100:
-            face = 100
-        if face <= 0:
-            face = 0
-
-    def CheckOverralHandy():
-        global overral_handy
-        overral_handy = 0
-        overral_handy += hairs*3
-        overral_handy += body*5
-        overral_handy += skin*5
-        if cosmetic > 7:
-            overral_handy += 20
-        elif cosmetic >= 4:
-            overral_handy += 10
-        elif cosmetic > 0:
-            overral_handy -= 20
-        overral_handy = round(overral_handy*0.75)
-        if overral_handy > 100:
-            overral_handy = 100
-        if overral_handy < 0:
-            overral_handy = 0
 
     def CheckMagic():
         global magic_roll, magic_chance
@@ -356,69 +169,7 @@
         global magic_roll
         magic_roll = False
 
-    def CheckTownPolice(): #проверка наличия шерифа
-        global TownSheriffWorking
-        global TownDeputySheriffWorking
-        if hour < 12 or hour > 16:
-            TownSheriffWorking = 0
-        else:
-            TownSheriffWorking = 1
 
-        if hour == 13:
-            TownDeputySheriffWorking = 0
-        else:
-            TownDeputySheriffWorking = 1
-
-    def CheckFatherKitchen():
-        global father_kitchen
-        if weekdays.index(weekday) < 6:
-            if hour == 7 or hour == 20:
-                father_kitchen = 1
-            else:
-                father_kitchen = 0
-        else:
-            if hour == 10 or hour == 19:
-                father_kitchen = 1
-            else:
-                father_kitchen = 0
-
-    def CheckMotherKitchen():
-        global mother_kitchen
-        if weekdays.index(weekday) < 6:
-            if hour == 6 or hour == 7 or hour == 20:
-                mother_kitchen = 1
-            else:
-                mother_kitchen = 0
-        else:
-            if (hour > 8 and hour < 12) or (hour >= 18 and hour <= 20):
-                mother_kitchen = 1
-            else:
-                mother_kitchen = 0
-
-    def CheckHallFather():
-        global father_hall
-        if weekdays.index(weekday) < 6:
-            if hour == 20 or hour == 21:
-                father_hall = 1
-            else:
-                father_hall = 0
-        else:
-            if hour > 15 and hour < 22:
-                father_hall = 1
-            else:
-                father_hall = 0
-    def CheckHallMother():
-        global mother_hall
-        if weekdays.index(weekday) < 6:
-            if hour == 21:
-                mother_hall = 1
-            else:
-                mother_hall = 0
-        else:
-            if hour >= 20 and hour <= 21:
-                mother_hall = 1
-            else:
-                mother_hall = 0
 
     def CheckNewDayVariables():
         global physique
@@ -427,54 +178,6 @@
         if richgym_ticket > 0:
             richgym_ticket -= 1
 
-
-    def CheckSleepVariables(index):
-        global cosmetic
-        global energy
-        global hunger
-        global hygiene
-        global hairs
-        global arouse
-        if cosmetic > 0:
-            cosmetic = 1
-        if index > 6:
-            energy = 100
-            hunger = 0
-            hygiene -= 60
-            if hairs == 10:
-                hairs = 6
-            else :
-                hairs -= 2
-        elif index > 4:
-            energy += 60
-            hunger -= 60
-            hygiene -= 40
-            if hairs == 10:
-                hairs = 8
-            else :
-                hairs -= 1
-        elif index > 2:
-            energy += 40
-            hunger -= 40
-            hygiene -= 30
-            if hairs == 10:
-                hairs = 9
-            else :
-                hairs -= 1
-        elif index == 1:
-            energy += 15
-            hunger -= 10                        
-        else:
-            energy += 20
-            hunger -=20
-            hygiene -= 20
-            if hairs == 10:
-                hairs = 8
-            else :
-                hairs -= 1
-        arouse = 0
-    def AddEnergy(x): # (оставлена для обратной совместимости)
-        AddStats("energy", x)
     def AddMinutes(min): #чтобы добавить час нужно добавить 60 минут
         global minutes
         global energy
@@ -482,19 +185,7 @@
         energy -= min*0.08
         CheckTime()
 
-    def AddMoney(x): #деньги
-        global money
-        money += x
-        if money < 0:
-            money = 0
 
-    def AddAlko(ind): #добавить алкоголь
-        global alkohol
-        alkohol += ind
-        if alkohol > 100:
-            alkohol = 100
-        if alkohol < 0:
-            alkohol = 0
 
     def CheckTime():
         global minutes
