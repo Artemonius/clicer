@@ -154,11 +154,11 @@ screen my_overlay:
     #     textbutton "ИНВЕНТАРЬ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("inventory_menu", "1"), SetVariable("character_menu", "0"), SetVariable("journal_menu", "0")]
     #     textbutton "ЗАМЕТКИ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("journal_menu", "1"), SetVariable("character_menu", "0"), SetVariable("inventory_menu", "0")]
 
-    # Статы наверху - первая строка
+    # Статы наверху - первая строка (3 бара)
     hbox:
         xalign 0.5
         ypos 30
-        spacing 30
+        spacing 40
 
         # Энергия: иконка слева от бара
         hbox:
@@ -167,7 +167,7 @@ screen my_overlay:
             bar value StaticValue(energy, 100):
                 yalign 0.5
                 xmaximum 200
-                ymaximum 25
+                ymaximum 40
                 left_bar "UI/Bars/green.png"
                 right_bar "UI/Bars/Background.png"
                 thumb None
@@ -180,7 +180,7 @@ screen my_overlay:
             bar value StaticValue(hunger, 100):
                 yalign 0.5
                 xmaximum 200
-                ymaximum 25
+                ymaximum 40
                 left_bar "UI/Bars/green.png"
                 right_bar "UI/Bars/Background.png"
                 thumb None
@@ -193,17 +193,17 @@ screen my_overlay:
             bar value StaticValue(hygiene, 100):
                 yalign 0.5
                 xmaximum 200
-                ymaximum 25
+                ymaximum 40
                 left_bar "UI/Bars/green.png"
                 right_bar "UI/Bars/Background.png"
                 thumb None
                 thumb_shadow None
 
-    # Статы наверху - вторая строка
+    # Статы наверху - вторая строка (2 бара, центрированы)
     hbox:
         xalign 0.5
-        ypos 90
-        spacing 30
+        ypos 100
+        spacing 40
 
         # Возбуждение: иконка слева от бара
         hbox:
@@ -212,7 +212,7 @@ screen my_overlay:
             bar value StaticValue(arouse, 100):
                 yalign 0.5
                 xmaximum 200
-                ymaximum 25
+                ymaximum 40
                 left_bar "UI/Bars/green.png"
                 right_bar "UI/Bars/Background.png"
                 thumb None
@@ -225,7 +225,7 @@ screen my_overlay:
             bar value StaticValue(mood, 100):
                 yalign 0.5
                 xmaximum 200
-                ymaximum 25
+                ymaximum 40
                 left_bar "UI/Bars/green.png"
                 right_bar "UI/Bars/Background.png"
                 thumb None
