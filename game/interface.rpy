@@ -261,7 +261,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/arouse.png" yalign 0.5
-                bar value VariableValue("arouse"):
+                bar value VariableValue("arouse", 100):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
@@ -275,7 +275,7 @@ screen my_overlay:
                 spacing 10
                 xsize 250
                 add "images/mood.png" yalign 0.5
-                bar value VariableValue("mood"):
+                bar value VariableValue("mood", 100):
                     yalign 0.5
                     xmaximum 200
                     ymaximum 40
