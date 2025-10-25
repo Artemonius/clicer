@@ -368,39 +368,88 @@ screen main_UI:
 
     text "Наличность: [money]$" xalign 0.09 yalign 0.19 xanchor 0.5 font "fonts/LocationDescription.ttf"
 
-    text "ЭНЕРГИЯ" xalign 0.09 yalign 0.285  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
-    bar value StaticValue(energy, 100): # максимум - 100 hp
-        align (.03, .33) # положение на экране
-        xmaximum 264 # размеры
-        ymaximum 25
-        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-        thumb None # здесь можно поставить разделитель
-        thumb_shadow None # и тень
-    text "ГОЛОД" xalign 0.09 yalign 0.375  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
-    bar value StaticValue(hunger, 100): # максимум - 100 hp
-        align (.03, .42) # положение на экране
-        xmaximum 264 # размеры
-        ymaximum 25
-        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-        thumb None # здесь можно поставить разделитель
-        thumb_shadow None # и тень
-    text "НАСТРОЕНИЕ" xalign 0.09 yalign 0.465  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
-    bar value StaticValue(mood, 100): # максимум - 100 hp
-        align (.03, .51) # положение на экране
-        xmaximum 264 # размеры
-        ymaximum 25
-        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-        thumb None # здесь можно поставить разделитель
-        thumb_shadow None # и тень
-    text "ВВОЗБУЖДЕНИЕ" xalign 0.09 yalign 0.555  font "fonts/ChoiceText.ttf" size 32 xanchor 0.5 color "#373737"
-    bar value StaticValue(arouse, 100): # максимум - 100 hp
-        align (.03, .6) # положение на экране
-        xmaximum 264 # размеры
-        ymaximum 25
-        left_bar "UI/Bars/green.png"#"#000000"#"im/int/tab_blue.png"    # пустой бар
-        right_bar "UI/Bars/Background.png" #"#ffffff" #"im/int/tab.png" # полный бар
-        thumb None # здесь можно поставить разделитель
-        thumb_shadow None # и тень
+    # Статы наверху - сетка 3 колонки x 2 строки
+    vbox:
+        xalign 0.5
+        ypos 30
+        spacing 30
+
+        # Первая строка: 3 бара
+        hbox:
+            spacing 40
+            xalign 0.5
+
+            # Энергия
+            hbox:
+                spacing 10
+                xsize 250
+                add "images/energy.png" yalign 0.5
+                bar value StaticValue(energy, 100):
+                    yalign 0.5
+                    xmaximum 200
+                    ymaximum 40
+                    left_bar "UI/Bars/green.png"
+                    right_bar "UI/Bars/Background.png"
+                    thumb None
+                    thumb_shadow None
+
+            # Голод
+            hbox:
+                spacing 10
+                xsize 250
+                add "images/hungry.png" yalign 0.5
+                bar value StaticValue(hunger, 100):
+                    yalign 0.5
+                    xmaximum 200
+                    ymaximum 40
+                    left_bar "UI/Bars/green.png"
+                    right_bar "UI/Bars/Background.png"
+                    thumb None
+                    thumb_shadow None
+
+            # Гигиена
+            hbox:
+                spacing 10
+                xsize 250
+                add "images/hygiene.png" yalign 0.5
+                bar value StaticValue(hygiene, 100):
+                    yalign 0.5
+                    xmaximum 200
+                    ymaximum 40
+                    left_bar "UI/Bars/green.png"
+                    right_bar "UI/Bars/Background.png"
+                    thumb None
+                    thumb_shadow None
+
+        # Вторая строка: 2 бара
+        hbox:
+            spacing 40
+            xalign 0.5
+
+            # Возбуждение
+            hbox:
+                spacing 10
+                xsize 250
+                add "images/arouse.png" yalign 0.5
+                bar value StaticValue(arouse, 100):
+                    yalign 0.5
+                    xmaximum 200
+                    ymaximum 40
+                    left_bar "UI/Bars/green.png"
+                    right_bar "UI/Bars/Background.png"
+                    thumb None
+                    thumb_shadow None
+
+            # Настроение
+            hbox:
+                spacing 10
+                xsize 250
+                add "images/mood.png" yalign 0.5
+                bar value StaticValue(mood, 100):
+                    yalign 0.5
+                    xmaximum 200
+                    ymaximum 40
+                    left_bar "UI/Bars/green.png"
+                    right_bar "UI/Bars/Background.png"
+                    thumb None
+                    thumb_shadow None
