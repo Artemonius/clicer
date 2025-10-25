@@ -57,6 +57,8 @@ screen stat_changes_display():
     # Отображаем изменения
     for stat_name, change_val in stat_changes.items():
         $ val = int(change_val)
+        $ x_pos = 300  # Дефолтное значение
+        $ y_pos = 50
 
         # Позиции для каждого стата (x, y)
         # Первая строка: y=50, вторая строка: y=110
