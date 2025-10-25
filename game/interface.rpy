@@ -28,6 +28,29 @@ transform balls_fly_right_up:
         linear 0.6 ypos 200
     linear 0.2 alpha 0.0
 
+# Screen для анимации одного шара
+screen ball_anim(stat_name, change_value, anim_id):
+    zorder 200
+
+    # Выбираем картинку
+    if change_value > 0:
+        $ ball_image = "images/balls2.png"
+    else:
+        $ ball_image = "images/balls.png"
+
+    # Выбираем траекторию и показываем анимацию
+    if stat_name in ["hunger", "mood"]:
+        add ball_image at balls_fly_up
+    elif stat_name in ["energy", "arouse"]:
+        add ball_image at balls_fly_left_up
+    elif stat_name in ["hygiene", "new_value_test"]:
+        add ball_image at balls_fly_right_up
+    else:
+        add ball_image at balls_fly_up
+
+    # Скрываем через 0.8 сек
+    timer 0.8 action Hide("ball_" + str(anim_id))
+
 # Screen для отображения изменений статов (+ и -)
 screen stat_changes_display():
     zorder 99

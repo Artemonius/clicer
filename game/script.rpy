@@ -177,26 +177,11 @@
         if value != 0:
             stat_changes[stat_name] = value
 
-            # Показываем анимацию шара
+            # Показываем анимацию через screen с уникальным tag
             global anim_counter
             anim_counter += 1
-            anim_tag = "ball_" + str(anim_counter)
 
-            # Выбираем картинку
-            if value > 0:
-                ball_img = "images/balls2.png"
-            else:
-                ball_img = "images/balls.png"
-
-            # Выбираем transform и показываем
-            if stat_name in ["hunger", "mood"]:
-                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_up], layer="master", zorder=200)
-            elif stat_name in ["energy", "arouse"]:
-                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_left_up], layer="master", zorder=200)
-            elif stat_name in ["hygiene", "new_value_test"]:
-                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_right_up], layer="master", zorder=200)
-            else:
-                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_up], layer="master", zorder=200)
+            renpy.show_screen("ball_anim", stat_name=stat_name, change_value=value, anim_id=anim_counter, _tag="ball_" + str(anim_counter))
 
     def CheckMagic():
         global magic_roll, magic_chance
