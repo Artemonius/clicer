@@ -113,6 +113,30 @@
     global father_hall
     global mother_hall
 
+    # Система отслеживания изменений статов для анимации
+    global stat_changes
+    stat_changes = {}
+
+    # Позиции статов на экране для анимации (y-координаты)
+    stat_positions = {
+        "energy": 55,      # первая строка, колонка 1
+        "hunger": 55,      # первая строка, колонка 2
+        "hygiene": 55,     # первая строка, колонка 3
+        "arouse": 115,     # вторая строка, колонка 1
+        "mood": 115,       # вторая строка, колонка 2
+        "new_value_test": 115  # вторая строка, колонка 3
+    }
+
+    # X-координаты для каждой колонки
+    stat_x_positions = {
+        "energy": 50,
+        "hunger": 320,
+        "hygiene": 590,
+        "arouse": 50,
+        "mood": 320,
+        "new_value_test": 590
+    }
+
     def ClearThings():
         global Location_items
         del Location_items[:]
@@ -122,7 +146,10 @@
         global CanUse
         CanUse = NewCan
 
-    def AddArouse(x):  # Возбуждение
+    def AddArouse(x):  # Возбуждение (оставлена для обратной совместимости)
+        AddStats("arouse", x)
+
+    def OldAddArouse(x):  # Старая версия
         global arouse, arouse_def, lust, satisfaction
         arouse_def += x * (lust / 100)
         arouse = arouse_def - satisfaction
@@ -176,60 +203,29 @@
         AddMood(20)
         AddHunger(-30)
 
-    def AddMood(x): #добавляем настроение. но можно и минусовать
-        global mood 
-        mood += x
-        CheckMood()
-    def AddLust(x): #развращенность
-        global lust
-        lust += x
-        if lust > 100:
-            lust = 100
-        if lust < 0:
-            lust = 0
-    def AddHunger(x): #голод
-        global hunger 
-        hunger += x
-        if hunger > 100:
-            hunger = 100
-        if hunger < 0:
-            hunger = 0
-    def AddSatisfaction(x): #удовлетворенность
-        global satisfaction
-        satisfaction += x
-        if satisfaction > 100:
-            satisfaction = 100
-        if satisfaction < 0:
-            satisfaction = 0
-    def AddHygiene(x): #гигиена
-        global hygiene
-        hygiene += x
-        if hygiene > 100:
-            hygiene = 100
-        if hygiene < 0:
-            hygiene = 0
+    def AddMood(x): #добавляем настроение (оставлена для обратной совместимости)
+        AddStats("mood", x)
+
+    def AddLust(x): #развращенность (оставлена для обратной совместимости)
+        AddStats("lust", x)
+
+    def AddHunger(x): #голод (оставлена для обратной совместимости)
+        AddStats("hunger", x)
+
+    def AddSatisfaction(x): #удовлетворенность (оставлена для обратной совместимости)
+        AddStats("satisfaction", x)
+
+    def AddHygiene(x): #гигиена (оставлена для обратной совместимости)
+        AddStats("hygiene", x)
     
-    def AddFatty(x): #толстота
-        global fatty 
-        fatty += x
-        if fatty > 100:
-            fatty = 100
-        if fatty < 0:
-            fatty = 0
-    def AddCosmetic(x): #косметика
-        global cosmetic
-        cosmetic += x
-        if cosmetic > 100:
-            cosmetic = 100
-        if cosmetic < 0:
-            cosmetic = 0
-    def AddFace(x): #красота лица
-        global face
-        face += x
-        if face > 100:
-            face = 100
-        if face < 0:
-            face = 0
+    def AddFatty(x): #толстота (оставлена для обратной совместимости)
+        AddStats("fatty", x)
+
+    def AddCosmetic(x): #косметика (оставлена для обратной совместимости)
+        AddStats("cosmetic", x)
+
+    def AddFace(x): #красота лица (оставлена для обратной совместимости)
+        AddStats("face", x)
 
 
     def CheckBody():
@@ -247,10 +243,55 @@
             body = 100
         if body < 0:
             body = 0
-    def AddStats(stats, value):
-        global arouse, mood
-        if stats == mood:
+    def AddStats(stat_name, value):
+        """
+        Универсальная функция для изменения всех статов с анимацией
+        stat_name: название стата (строка) - "energy", "mood", "hunger", "hygiene", "arouse" и т.д.
+        value: значение изменения (положительное или отрицательное)
+        """
+        global energy, mood, hunger, hygiene, arouse, arouse_def, lust, satisfaction
+        global fatty, cosmetic, face, skin, hairs, body, physique
+        global stat_changes
+        import time
+
+        # Получаем текущее значение стата
+        old_value = globals().get(stat_name, 0)
+
+        # Обновляем значение в зависимости от типа стата
+        if stat_name == "arouse":
+            # Специальная обработка для возбуждения
+            arouse_def += value * (lust / 100) if lust > 0 else value
+            arouse = arouse_def - satisfaction
+            if arouse < 0:
+                arouse = 0
+            if arouse > 100:
+                arouse = 100
+        elif stat_name == "mood":
+            # Для настроения есть специальная проверка
             mood += value
+            CheckMood()
+        else:
+            # Для остальных статов - простое добавление
+            current_value = globals().get(stat_name, 0)
+            new_value = current_value + value
+
+            # Ограничиваем значения от 0 до 100
+            if new_value > 100:
+                new_value = 100
+            if new_value < 0:
+                new_value = 0
+
+            globals()[stat_name] = new_value
+
+        # Сохраняем изменение для анимации (только если изменение не нулевое)
+        if value != 0 and stat_name in stat_positions:
+            stat_changes[stat_name] = {
+                'value': value,
+                'timestamp': time.time(),
+                'show': True
+            }
+            # Показываем анимацию
+            renpy.show_screen("stat_animation", stat_name=stat_name, change_value=value)
 
     def CheckFace():
         global face
@@ -419,13 +460,8 @@
             else :
                 hairs -= 1
         arouse = 0
-    def AddEnergy(x):
-        global energy
-        energy += x
-        if energy > 100:
-            energy = 100
-        if energy < 0:
-            energy = 0
+    def AddEnergy(x): # (оставлена для обратной совместимости)
+        AddStats("energy", x)
     def AddMinutes(min): #чтобы добавить час нужно добавить 60 минут
         global minutes
         global energy
@@ -514,6 +550,15 @@ screen main_screen2:
         text "text text {a=jump:ss1} jump {/a}" color "#ffffff"
         text "text text text {a=jump:ss2} jump {/a}" color "#ffffff"
         text "[sctext]" color "#ffffff"
+# Изображения для анимации статов
+# Простые круглые шары для анимации (можно заменить на свои изображения)
+image balls_placeholder = Solid("#FF0000", xysize=(30, 30))  # Красный круг для убавления
+image balls2_placeholder = Solid("#00FF00", xysize=(30, 30))  # Зеленый круг для прибавления
+
+# Если у вас есть свои изображения, раскомментируйте строки ниже и закомментируйте выше:
+# image balls = "images/balls.png"
+# image balls2 = "images/balls2.png"
+
 #здесь лежат image и можно добавлять видео
 image minet_bar = Movie(play="blowjob_bar_1.webm")
 image minet_bar_2 = Movie(play="blowjob_bar_2.webm")

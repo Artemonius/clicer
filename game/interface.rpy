@@ -1,3 +1,81 @@
+# Трансформация для анимации шаров
+transform balls_fly(start_x, start_y, end_x, end_y):
+    # Начальная позиция в центре экрана
+    xpos start_x
+    ypos start_y
+    alpha 1.0
+
+    # Анимация полета к стату
+    linear 0.5 xpos end_x ypos end_y
+    # Исчезновение
+    linear 0.2 alpha 0.0
+
+# Screen для анимации изменения статов
+screen stat_animation(stat_name, change_value):
+    zorder 100
+    tag stat_animation
+
+    # Определяем центр экрана
+    default center_x = 960
+    default center_y = 540
+
+    # Получаем координаты стата
+    python:
+        from store import stat_x_positions, stat_positions
+        end_x = stat_x_positions.get(stat_name, 50) + 220  # +220 чтобы было справа от полоски
+        end_y = stat_positions.get(stat_name, 50)
+
+        # Выбираем картинку в зависимости от направления изменения
+        # Если у вас есть свои изображения balls.png и balls2.png в папке images,
+        # измените ball_image на "images/balls.png" и "images/balls2.png"
+        if change_value > 0:
+            ball_image = "balls2_placeholder"  # Прибавление (зеленый)
+        else:
+            ball_image = "balls_placeholder"   # Убавление (красный)
+
+    # Анимация полета шара
+    add ball_image at balls_fly(center_x, center_y, end_x, end_y)
+
+    # Автоматически скрыть экран через 0.7 секунды
+    timer 0.7 action Hide("stat_animation")
+
+# Screen для отображения изменений статов (+ и -)
+screen stat_changes_display():
+    zorder 99
+
+    # Проходим по всем изменениям статов
+    python:
+        import time
+        from store import stat_changes, stat_x_positions, stat_positions
+        current_time = time.time()
+
+        # Удаляем старые изменения (старше 2 секунд)
+        to_remove = []
+        for stat_name, change_info in stat_changes.items():
+            if current_time - change_info.get('timestamp', 0) > 2.0:
+                to_remove.append(stat_name)
+
+        for stat_name in to_remove:
+            del stat_changes[stat_name]
+
+    # Отображаем изменения
+    for stat_name, change_info in stat_changes.items():
+        $ x_pos = stat_x_positions.get(stat_name, 50) + 260  # Справа от полоски
+        $ y_pos = stat_positions.get(stat_name, 50)
+        $ change_val = change_info.get('value', 0)
+
+        if change_val > 0:
+            text "+[change_val]" xpos x_pos ypos y_pos size 32 color "#00ff00" at fade_in_out
+        elif change_val < 0:
+            text "[change_val]" xpos x_pos ypos y_pos size 32 color "#ff0000" at fade_in_out
+
+# Трансформация для плавного появления и исчезновения текста
+transform fade_in_out:
+    alpha 0.0
+    linear 0.2 alpha 1.0
+    pause 1.6
+    linear 0.2 alpha 0.0
+
 screen my_overlay:
     # Белый фон
     add Solid("#FFFFFF")
@@ -270,6 +348,9 @@ screen my_overlay:
 
         # Деньги
         text "Наличность: [money]$" size 24 font "fonts/serreg.ttf" yalign 0.5
+
+    # Отображение изменений статов (+ и -)
+    use stat_changes_display
 
     # Описание персонажа
     
