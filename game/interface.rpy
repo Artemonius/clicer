@@ -1,32 +1,23 @@
 
 
 screen my_overlay:
-    #add DynamicImage("images/1.png") xalign 0.5 yalign 0 # бэкграунд
-    #add "UI/overlay.png"
-    #text "[Location_name]" xalign 0.5 yalign 0.69  size 40 font "fonts/LocationName.ttf" xanchor 0.5
-    # Описание локации
+    # Белый фон
+    add Solid("#FFFFFF")
 
-    # Белый фон с подложкой
+    # Основная подложка игры
     add "images/game_fon.png" xalign 0.5 yalign 0.5
-
-    frame:
-        xpadding 0
-        ypadding 0
-        background Solid("#FFFFFF")
-
-
 
     frame:
         xsize 450
         ysize 1080
-        background Solid("#FFFFFF")
+        background None
         xpos 0
         ypos 0
 
     frame:
         xsize 450
         ysize 1080
-        background Solid("#FFFFFF")
+        background None
         xpos 1920-450
         ypos 0
 
@@ -163,18 +154,18 @@ screen my_overlay:
     #     textbutton "ИНВЕНТАРЬ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("inventory_menu", "1"), SetVariable("character_menu", "0"), SetVariable("journal_menu", "0")]
     #     textbutton "ЗАМЕТКИ" text_font "fonts/spectral.ttf" text_size 40 action [SetVariable("journal_menu", "1"), SetVariable("character_menu", "0"), SetVariable("inventory_menu", "0")]
 
-    # Статы в верхней части - первая строка
+    # Статы наверху - первая строка
     hbox:
         xalign 0.5
-        ypos 20
-        spacing 40
+        ypos 30
+        spacing 30
 
-        # Энергия
-        vbox:
-            spacing 5
-            add "images/energy.png" xalign 0.5
+        # Энергия: иконка слева от бара
+        hbox:
+            spacing 10
+            add "images/energy.png" yalign 0.5
             bar value StaticValue(energy, 100):
-                xalign 0.5
+                yalign 0.5
                 xmaximum 200
                 ymaximum 25
                 left_bar "UI/Bars/green.png"
@@ -182,12 +173,12 @@ screen my_overlay:
                 thumb None
                 thumb_shadow None
 
-        # Голод
-        vbox:
-            spacing 5
-            add "images/hungry.png" xalign 0.5
+        # Голод: иконка слева от бара
+        hbox:
+            spacing 10
+            add "images/hungry.png" yalign 0.5
             bar value StaticValue(hunger, 100):
-                xalign 0.5
+                yalign 0.5
                 xmaximum 200
                 ymaximum 25
                 left_bar "UI/Bars/green.png"
@@ -195,12 +186,12 @@ screen my_overlay:
                 thumb None
                 thumb_shadow None
 
-        # Гигиена
-        vbox:
-            spacing 5
-            add "images/hygiene.png" xalign 0.5
+        # Гигиена: иконка слева от бара
+        hbox:
+            spacing 10
+            add "images/hygiene.png" yalign 0.5
             bar value StaticValue(hygiene, 100):
-                xalign 0.5
+                yalign 0.5
                 xmaximum 200
                 ymaximum 25
                 left_bar "UI/Bars/green.png"
@@ -208,18 +199,18 @@ screen my_overlay:
                 thumb None
                 thumb_shadow None
 
-    # Статы в верхней части - вторая строка
+    # Статы наверху - вторая строка
     hbox:
         xalign 0.5
-        ypos 120
-        spacing 40
+        ypos 90
+        spacing 30
 
-        # Возбуждение
-        vbox:
-            spacing 5
-            add "images/arouse.png" xalign 0.5
+        # Возбуждение: иконка слева от бара
+        hbox:
+            spacing 10
+            add "images/arouse.png" yalign 0.5
             bar value StaticValue(arouse, 100):
-                xalign 0.5
+                yalign 0.5
                 xmaximum 200
                 ymaximum 25
                 left_bar "UI/Bars/green.png"
@@ -227,12 +218,12 @@ screen my_overlay:
                 thumb None
                 thumb_shadow None
 
-        # Настроение
-        vbox:
-            spacing 5
-            add "images/mood.png" xalign 0.5
+        # Настроение: иконка слева от бара
+        hbox:
+            spacing 10
+            add "images/mood.png" yalign 0.5
             bar value StaticValue(mood, 100):
-                xalign 0.5
+                yalign 0.5
                 xmaximum 200
                 ymaximum 25
                 left_bar "UI/Bars/green.png"
