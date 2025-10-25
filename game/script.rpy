@@ -101,6 +101,14 @@
     global stat_changes
     stat_changes = {}
 
+    # Активные анимации шаров
+    global active_ball_animations
+    active_ball_animations = []
+
+    # Счетчик для уникальных ID анимаций
+    global anim_counter
+    anim_counter = 0
+
     def ClearThings():
         global Location_items
         del Location_items[:]
@@ -169,10 +177,38 @@
             if new_value_test > 100: new_value_test = 100
             if new_value_test < 0: new_value_test = 0
 
-        # Сохраняем изменение для отображения +/- и показываем анимацию
+        # Сохраняем изменение для отображения +/-
         if value != 0:
             stat_changes[stat_name] = value
-            renpy.show_screen("stat_animation", stat_name=stat_name, change_value=value)
+
+            # Добавляем анимацию в список активных
+            global anim_counter, active_ball_animations
+            import time
+            anim_counter += 1
+
+            # Выбираем картинку
+            if value > 0:
+                ball_img = "images/balls2.png"
+            else:
+                ball_img = "images/balls.png"
+
+            # Выбираем transform
+            if stat_name in ["hunger", "mood"]:
+                transform_name = "balls_fly_up"
+            elif stat_name in ["energy", "arouse"]:
+                transform_name = "balls_fly_left_up"
+            elif stat_name in ["hygiene", "new_value_test"]:
+                transform_name = "balls_fly_right_up"
+            else:
+                transform_name = "balls_fly_up"
+
+            # Добавляем в список активных анимаций
+            active_ball_animations.append({
+                'id': anim_counter,
+                'image': ball_img,
+                'transform': transform_name,
+                'start_time': time.time()
+            })
 
     def CheckMagic():
         global magic_roll, magic_chance

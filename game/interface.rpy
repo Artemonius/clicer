@@ -28,26 +28,21 @@ transform balls_fly_right_up:
         linear 0.6 ypos 200
     linear 0.2 alpha 0.0
 
-# Screen для анимации изменения статов
-screen stat_animation(stat_name, change_value):
+# Screen для отображения всех активных анимаций шаров
+screen ball_animations_display():
     zorder 200
-    # Без tag - позволяет создавать множество экземпляров одновременно
 
-    # Выбираем картинку
-    if change_value > 0:
-        $ ball_image = "images/balls2.png"
-    else:
-        $ ball_image = "images/balls.png"
+    python:
+        import time
+        current_time = time.time()
 
-    # Выбираем траекторию и показываем анимацию
-    if stat_name in ["hunger", "mood"]:
-        add ball_image at balls_fly_up
-    elif stat_name in ["energy", "arouse"]:
-        add ball_image at balls_fly_left_up
-    elif stat_name in ["hygiene", "new_value_test"]:
-        add ball_image at balls_fly_right_up
-    else:
-        add ball_image at balls_fly_up
+        # Удаляем старые анимации (старше 1 секунды)
+        active_ball_animations[:] = [anim for anim in active_ball_animations if current_time - anim['start_time'] < 1.0]
+
+    # Показываем все активные анимации
+    for anim in active_ball_animations:
+        $ anim_transform = eval(anim['transform'])
+        add anim['image'] at anim_transform
 
 # Screen для отображения изменений статов (+ и -)
 screen stat_changes_display():
@@ -373,6 +368,9 @@ screen my_overlay:
 
     # Отображение изменений статов (+ и -)
     use stat_changes_display
+
+    # Анимации шаров
+    use ball_animations_display
 
     # Описание персонажа
     
