@@ -101,10 +101,6 @@
     global stat_changes
     stat_changes = {}
 
-    # Активные анимации шаров
-    global active_ball_animations
-    active_ball_animations = []
-
     # Счетчик для уникальных ID анимаций
     global anim_counter
     anim_counter = 0
@@ -181,10 +177,10 @@
         if value != 0:
             stat_changes[stat_name] = value
 
-            # Добавляем анимацию в список активных
-            global anim_counter, active_ball_animations
-            import time
+            # Показываем анимацию шара
+            global anim_counter
             anim_counter += 1
+            anim_tag = "ball_" + str(anim_counter)
 
             # Выбираем картинку
             if value > 0:
@@ -192,23 +188,15 @@
             else:
                 ball_img = "images/balls.png"
 
-            # Выбираем transform
+            # Выбираем transform и показываем
             if stat_name in ["hunger", "mood"]:
-                transform_name = "balls_fly_up"
+                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_up], layer="master", zorder=200)
             elif stat_name in ["energy", "arouse"]:
-                transform_name = "balls_fly_left_up"
+                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_left_up], layer="master", zorder=200)
             elif stat_name in ["hygiene", "new_value_test"]:
-                transform_name = "balls_fly_right_up"
+                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_right_up], layer="master", zorder=200)
             else:
-                transform_name = "balls_fly_up"
-
-            # Добавляем в список активных анимаций
-            active_ball_animations.append({
-                'id': anim_counter,
-                'image': ball_img,
-                'transform': transform_name,
-                'start_time': time.time()
-            })
+                renpy.show(anim_tag, what=Image(ball_img), at_list=[balls_fly_up], layer="master", zorder=200)
 
     def CheckMagic():
         global magic_roll, magic_chance

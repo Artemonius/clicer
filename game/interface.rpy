@@ -28,22 +28,6 @@ transform balls_fly_right_up:
         linear 0.6 ypos 200
     linear 0.2 alpha 0.0
 
-# Screen для отображения всех активных анимаций шаров
-screen ball_animations_display():
-    zorder 200
-
-    python:
-        import time
-        current_time = time.time()
-
-        # Удаляем старые анимации (старше 1 секунды)
-        active_ball_animations[:] = [anim for anim in active_ball_animations if current_time - anim['start_time'] < 1.0]
-
-    # Показываем все активные анимации
-    for anim in active_ball_animations:
-        $ anim_transform = eval(anim['transform'])
-        add anim['image'] at anim_transform
-
 # Screen для отображения изменений статов (+ и -)
 screen stat_changes_display():
     zorder 99
@@ -368,9 +352,6 @@ screen my_overlay:
 
     # Отображение изменений статов (+ и -)
     use stat_changes_display
-
-    # Анимации шаров
-    use ball_animations_display
 
     # Описание персонажа
     
